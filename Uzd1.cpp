@@ -85,17 +85,17 @@ double median(vector<int> paz)
 	size_t n = paz.size();
 	if (n == 0) return 0; //jei nera pazymiu
 
-	size_t mid = n / 2; 
+	size_t mid = n / 2;  //surandamas vidurinio skaiciaus indeksas
 
 	nth_element(paz.begin(), paz.begin() + mid, paz.end());
-	double m1 = paz[mid];
+	double m1 = paz[mid]; //pasirenkama vidurinio skaiciaus reiksme
 
-	if (n % 2 == 1) return m1;
+	if (n % 2 == 1) return m1; // jei pazymiu kiekis nelyginis, mediana ir bus tas vidurinis skaicius
 
-	nth_element(paz.begin(), paz.begin() + mid - 1, paz.end());
-	double m2 = paz[mid - 1];
+	nth_element(paz.begin(), paz.begin() + mid - 1, paz.end()); // randamas skaicius, vienu indeksu mazesnis nei vidurys
+	double m2 = paz[mid - 1]; //priskiriama reiksme
 
-	return (m1 + m2) / 2.0;
+	return (m1 + m2) / 2.0; // mediana, kai pazymiu kiekis lyginis
 }
 
 int pasirinkimas() {
