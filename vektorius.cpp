@@ -26,10 +26,12 @@ double skaiciuotiGalutini(vector<int> v, int egz, int metodas) {
 
 void vykdytiVector() {
 	vector<StudentasVector> grupe;
-	int metodas = gautiSkaiciu("Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): \n", 1, 2);
+	int metodas = gautiSkaiciu("Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): \nPasirinkimas: ", 1, 2);
+
+	cout << "\n1-Irasyti viska ranka\n2-Generuoti tik pazymius\n3-Generuoti viska\n4-Baigti darba\n";
+	
 
 	while (true) {
-		cout << "\n1-Irasyti viska ranka\n2-Generuoti tik pazymius\n3-Generuoti viska\n4-Baigti darba\n";
 		int pasirinkimas = gautiSkaiciu("Pasirinkimas: ", 1, 4);
 		if (pasirinkimas == 4) break;
 
@@ -42,7 +44,7 @@ void vykdytiVector() {
 			cin >> st.pavarde;
 		}
 		else if (pasirinkimas == 3) {
-			int kiek = gautiSkaiciu("Kiek studentu generuoti? ", 1, 1000000000);
+			int kiek = gautiSkaiciu("Kiek studentu generuoti? ", 1, 1000000);
 			for (int i = 0; i < kiek; i++) {
 				StudentasVector st;
 				st.vardas = genVarda();
@@ -51,8 +53,10 @@ void vykdytiVector() {
 				st.rez = skaiciuotiGalutini(st.paz, st.egz, metodas);
 				grupe.push_back(st);
 			}
-			
-			cout << "Sugeneruota: " << kiek << "studentu." << endl;
+
+			cout << "Sugeneruota: " << kiek << " studentu." << endl;
+			cout << "\n1-Irasyti viska ranka\n2-Generuoti tik pazymius\n3-Generuoti viska\n4-Baigti darba\n";
+			continue;
 		}
 		if (pasirinkimas == 1) {
 			string input;
@@ -74,6 +78,8 @@ void vykdytiVector() {
 
 		st.rez = skaiciuotiGalutini(st.paz, st.egz, metodas);
 		grupe.push_back(st);
+		
+		
 	}
 	
 	cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(20) << "Galutinis Pazymys" << endl;

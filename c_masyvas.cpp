@@ -37,25 +37,29 @@ double skaiciuotiGalutini(int* arr, int n, int egz, int metodas) {
 }
 
 void vykdytiArray() {
-	int talpa = 30;
-	int n = 0; // pradine masyvo talpa - 30
+	int talpa = 30; // pradine masyvo talpa - 30
+	int n = 0; 
 	StudentasArray* grupe = new StudentasArray[talpa];
 	int metodas = gautiSkaiciu("Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): ", 1, 2);
 
+	
+
 	while (true) {
+		
 		cout << "\n1-Irasyti viska ranka\n2-Generuoti tik pazymius\n3-Generuoti viska\n4-Baigti darba\n";
+	
 		int pasirinkimas = gautiSkaiciu("Pasirinkimas: ", 1, 4);
 		if (pasirinkimas == 4) break; // tas pats kaip ir vektoriuje
 
-		StudentasArray st;
 		if (pasirinkimas == 3) {
-			int kiek = gautiSkaiciu("Kiek studentu sugeneruoti? ", 1, 100000000);
+			int kiek = gautiSkaiciu("Kiek studentu sugeneruoti? ", 1, 1000000);
 			for (int i = 0; i < kiek; i++) {
 				StudentasArray st;
 				st.vardas = genVarda();
 				st.pavarde = genPavarde(st.vardas);
 				genPazymius(st.paz, st.kiekis, st.egz);
 				st.rez = skaiciuotiGalutini(st.paz, st.kiekis, st.egz, metodas);
+
 				if (n == talpa) {
 					talpa *= 2;
 					StudentasArray* naujaGrupe = new StudentasArray[talpa];
@@ -66,13 +70,17 @@ void vykdytiArray() {
 				grupe[n++] = st;
 			}
 			cout << "Sugeneruota: " << kiek << " studentu." << endl;
+			continue;
+			//cout << "\n1-Irasyti viska ranka\n2-Generuoti tik pazymius\n3-Generuoti viska\n4-Baigti darba\n";
 		}
-		else {
+		StudentasArray st;
 			cout << "Iveskite studento varda (arba 'stop',jei norite uzbaigti studentu irasyma): ";
 			cin >> st.vardas;
 			if (st.vardas == "stop" || st.vardas == "Stop" || st.vardas == "STOP") break;
+
 			cout << "Iveskite studento pavarde: ";
 			cin >> st.pavarde;
+
 			if (pasirinkimas == 1) {
 				cout << "Iveskite namu darbu pazymius (1 - 10) (arba 'stop', jei norite uzbaigti namu darbu pazymiu irasyma): \n";
 				while (true) {
@@ -89,12 +97,12 @@ void vykdytiArray() {
 				st.egz = gautiSkaiciu("Iveskite egzamino bala (1 - 10): \n", 1, 10);
 			}
 			else genPazymius(st.paz, st.kiekis, st.egz);
-		}
+		
 
 		st.rez = skaiciuotiGalutini(st.paz, st.kiekis, st.egz, metodas);
 
 		if (n == talpa) {
-			talpa *= 30;
+			talpa *= 2;
 			StudentasArray* naujaGrupe = new StudentasArray[talpa];
 			for (int i = 0; i < n; i++) naujaGrupe[i] = grupe[i];
 			delete[] grupe;
@@ -102,10 +110,10 @@ void vykdytiArray() {
 		}
 		grupe[n++] = st;
 	}
-	cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(20) << "Galutinis pazymys\n";
+	cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(20) << "Galutinis pazymys" << endl;
 	for (int i = 0; i < n; i++) {
-		cout << left << setw(15) << grupe[i].vardas << setw(15) << grupe[i].pavarde << setw(20) << fixed << setprecision(2) << grupe[i].rez << endl;
-		delete[] grupe[i].paz; // Atlaisviname kiekvieno studento pazymiu masyva
+		cout << left << setw(15) << grupe[i].vardas << setw(15) << grupe[i].pavarde << fixed << setprecision(2) << grupe[i].rez << endl;
+		delete[] grupe[n].paz; // Atlaisviname kiekvieno studento pazymiu masyva
 	}
 	delete[] grupe; // Atlaisviname studentu masyva
 }

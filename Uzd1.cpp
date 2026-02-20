@@ -2,12 +2,15 @@
 
 int main() {
     int pasirinkimas;
+    while (true) {
+        cout << "\n===========================================\n";
         cout << "Pasirinkite duomenu saugojimo buda: \n";
         cout << "1 - Naudoti std::vector\n";
         cout << "2 - Naudoti C masyvus (dinamine atmintis)\n";
-		cout << "0 - Baigti programa\n";
+		cout << "0 - Baigti programa";
+        cout << "\n===========================================\n";
         cout << "Pasirinkimas: ";
-    while (true) {
+
         if (cin >> pasirinkimas) {
             if (pasirinkimas == 0) {
                 cout << "Programa baigta.\n";
@@ -37,10 +40,11 @@ string genVarda() {
 string genPavarde(string vardas) {
     static std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
     string Vpavardes[] = { "Kazlauskas", "Jankauskas", "Petrauskas", "Stankevicius", "Vasiliauskas", "Butkus", "Zukauskas", "Paulauskas", "Urbonas", "Kavaliauskas" };
-    string Mpavardes[] = { "Kazlauskaite", "Jankauskaite", "Petrauskaite", "Stankevicaite", "Vasiliauskaite", "Butkute", "Zukauskaite", "Paulauskaite", "Urbonaite", "Kavaliauskaite" };
-    if (!vardas.empty() && vardas.back() == 's')
+    string Mpavardes[] = { "Kazlauskaite", "Jankauskaite", "Petrauskaite", "Stankeviciute", "Vasiliauskaite", "Butkute", "Zukauskaite", "Paulauskaite", "Urbonaite", "Kavaliauskaite" };
+    if (!vardas.empty() && vardas.back() == 's') {
         return Vpavardes[mt() % 10];
-    return Mpavardes[mt() % 10];
+    }
+        return Mpavardes[mt() % 10];
 }
     // klaidu valymas
     int gautiSkaiciu(string info, int min, int max) {
