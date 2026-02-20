@@ -1,10 +1,9 @@
 #pragma once
-#include <iomanip>
-#include <vector>
 #include <iostream>
+#include <vector>
 #include <string>
+#include <iomanip>
 #include <algorithm>
-#include <random>
 
 using std::cin;
 using std::cout;
@@ -14,25 +13,30 @@ using std::left;
 using std::right;
 using std::setw;
 using std::endl;
+using std::sort;
+using std::fixed;
+using std::setprecision;
 
 // Struct vektoriu versijai
 struct StudentasVector {
-    std::string vardas, pavarde;
-    std::vector<int> paz;
+    string vardas, pavarde;
+    vector<int> paz;
     int egz;
     double rez;
 };
 
 // Struct masyvo versijai
 struct StudentasArray {
-    std::string vardas, pavarde;
-    int* paz;
-    int kiekis;
+    string vardas, pavarde;
+    int* paz = nullptr;
+    int kiekis = 0;
     int egz;
     double rez;
 };
 
 // Prototipai
-void vykdytiVectorVersija();
-void vykdytiArrayVersija();
-double skaiciuotiGalutini(double vidurkis_ar_mediana, int egz);
+void vykdytiVector();
+void vykdytiArray();
+
+double skaiciuotiGalutini(vector<int> v, int egz, int metodas);
+double skaiciuotiGalutini(int* arr, int n, int egz, int metodas);
