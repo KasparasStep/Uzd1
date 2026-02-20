@@ -41,10 +41,18 @@ void vykdytiVector() {
 			cout << "Iveskite studento pavarde: ";
 			cin >> st.pavarde;
 		}
-		else {
-			st.vardas = genVarda();
-			st.pavarde = genPavarde(st.vardas);
-			cout << "Sugeneruota: " << st.vardas << " " << st.pavarde << endl;
+		else if (pasirinkimas == 3) {
+			int kiek = gautiSkaiciu("Kiek studentu generuoti? ", 1, 1000000000);
+			for (int i = 0; i < kiek; i++) {
+				StudentasVector st;
+				st.vardas = genVarda();
+				st.pavarde = genPavarde(st.vardas);
+				genPazymius(st.paz, st.egz);
+				st.rez = skaiciuotiGalutini(st.paz, st.egz, metodas);
+				grupe.push_back(st);
+			}
+			
+			cout << "Sugeneruota: " << kiek << "studentu." << endl;
 		}
 		if (pasirinkimas == 1) {
 			string input;
@@ -67,7 +75,6 @@ void vykdytiVector() {
 		st.rez = skaiciuotiGalutini(st.paz, st.egz, metodas);
 		grupe.push_back(st);
 	}
-
 	
 	cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(20) << "Galutinis Pazymys" << endl;
 	for (const auto& st : grupe) {
