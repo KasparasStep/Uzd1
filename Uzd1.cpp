@@ -2,12 +2,12 @@
 
 int main() {
     int pasirinkimas;
-    while (true) {
         cout << "Pasirinkite duomenu saugojimo buda: \n";
         cout << "1 - Naudoti std::vector\n";
         cout << "2 - Naudoti C masyvus (dinamine atmintis)\n";
 		cout << "0 - Baigti programa\n";
         cout << "Pasirinkimas: ";
+    while (true) {
         if (cin >> pasirinkimas) {
             if (pasirinkimas == 0) {
                 cout << "Programa baigta.\n";

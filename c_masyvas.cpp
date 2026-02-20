@@ -30,27 +30,31 @@ double skaiciuotiGalutini(int* arr, int n, int egz, int metodas) {
 }
 
 void vykdytiArray() {
-	int talpa = 30, n = 0, metodas;
+	int talpa = 30, n = 0;
 	StudentasArray* grupe = new StudentasArray[talpa];
-	cout << "Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): ";
-	cin >> metodas;
+	int metodas = gautiSkaiciu("Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): ", 1, 2);
 
 	while (true) {
 		StudentasArray st;
 		cout << "Iveskite studento varda (arba 'stop',jei norite uzbaigti studentu irasyma): ";
 		cin >> st.vardas;
-		if (st.vardas == "stop") break;
+		if (st.vardas == "stop" || st.vardas == "Stop" || st.vardas == "STOP") break;
 		cout << "Iveskite studento pavarde: ";
 		cin >> st.pavarde;
 
 		string input;
-		cout << "Iveskite namu darbu pazymius (1 - 10) (arba 'stop', jei norite uzbaigti namu darbu pazymiu irasyma): ";
-		while (cin >> input && input != "stop") {
-			try { pridetiPazymi(st, std::stoi(input)); } //keiciam string i int
-			catch (...) { cout << "Neteisingas pazymys, bandykite dar karta: "; }
+		cout << "Iveskite namu darbu pazymius (1 - 10) (arba 'stop', jei norite uzbaigti namu darbu pazymiu irasyma): \n";
+		while (true) {
+			cin >> input;
+			if (input == "stop" || input == "Stop" || input == "STOP") break;
+			try { 
+				int paz = std::stoi(input);//keiciam string i int
+				if (paz >= 1 && paz <= 10) pridetiPazymi(st, paz);
+				else cout << "Pazymys turi buti tarp 1 ir 10.\n";
+			} 
+			catch (...) { cout << "Klaida, bandykite dar karta: \n"; }
 		}
-		cout << "Iveskite egzamino bala (1 - 10): ";
-		cin >> st.egz;
+		st.egz = gautiSkaiciu("Iveskite egzamino bala (1 - 10): \n", 1, 10);
 		st.rez = skaiciuotiGalutini(st.paz, st.kiekis, st.egz, metodas);
 
 		if (n == talpa) {

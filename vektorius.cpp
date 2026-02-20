@@ -18,30 +18,29 @@ double skaiciuotiGalutini(vector<int> v, int egz, int metodas) {
 
 void vykdytiVector() {
 	vector<StudentasVector> grupe;
-	int metodas = gautiSkaiciu("Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): ", 1, 2);
+	int metodas = gautiSkaiciu("Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): \n", 1, 2);
 	cin >> metodas;
 
 	while (true) {
 		StudentasVector st;
-		cout << "Iveskite studento varda (arba 'stop',jei norite uzbaigti studentu irasyma): ";
+		cout << "Iveskite studento varda (arba 'stop',jei norite uzbaigti studentu irasyma): \n";
 		cin >> st.vardas;
-		if (st.vardas == "stop") break;
+		if (st.vardas == "stop" || st.vardas == "Stop" || st.vardas == "STOP") break;
 		cout << "Iveskite studento pavarde: ";
 		cin >> st.pavarde;
 
 		string input;
-		cout << "Iveskite namu darbu pazymius (1 - 10) (arba 'stop', jei norite uzbaigti namu darbu pazymiu irasyma): ";
+		cout << "Iveskite namu darbu pazymius (1 - 10) (arba 'stop', jei norite uzbaigti namu darbu pazymiu irasyma): \n";
 		while (true) {
-			cout << "Iveskite namu darbu pazymius (1 - 10) (arba 'stop', jei norite uzbaigti namu darbu pazymiu irasyma): ";
 			cin >> input;
-			if (input == "stop") break;
+			if (input == "stop" || input == "Stop" || input == "STOP") break;
 			try { int paz = std::stoi(input); //keiciam string i int
 			if (paz >= 1 && paz<= 10) st.paz.push_back(paz);
-			else cout << "Pazymys turi buti tarp 1 ir 10, bandykite dar karta: ";
+			else cout << "Pazymys turi buti tarp 1 ir 10.\n";
 			} 
 			catch (...) { cout << "Neteisingas pazymys, bandykite dar karta: "; }
 			}
-		cout << "Iveskite egzamino bala (1 - 10): ";
+		cout << "Iveskite egzamino bala (1 - 10): \n";
 		cin >> st.egz;
 		st.rez = skaiciuotiGalutini(st.paz, st.egz, metodas);
 		grupe.push_back(st);
