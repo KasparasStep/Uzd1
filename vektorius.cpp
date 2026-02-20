@@ -3,7 +3,7 @@
 // f-ja duomenu generavimui
 void genPazymius(vector<int>& paz, int& egz) {
 	static std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
-	int kiekPaz = mt() % 5 + 1; // Generuoja nuo 1 iki 5 pazymiu
+	int kiekPaz = 5; // Generuoja 5 pazymius
 	for (int i = 0; i < kiekPaz; i++) paz.push_back(mt() % 10 + 1); // Pazymiai nuo 1 iki 10
 	egz = mt() % 10 + 1; // Egzamino balas nuo 1 iki 10
 }

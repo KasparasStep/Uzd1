@@ -12,7 +12,7 @@ void pridetiPazymi(StudentasArray& st, int paz) {
 }
 void genPazymius(int*& paz, int& kiekis, int& egz) {
 	static std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
-	kiekis = mt() % 5 + 1; // Generuoja nuo 1 iki 5 pazymiu
+	kiekis = 5; // Generuoja 5 pazymius
 	paz = new int[kiekis];
 	for (int i = 0; i < kiekis; i++) paz[i] = mt() % 10 + 1; // Pazymiai nuo 1 iki 10
 	egz = mt() % 10 + 1; // Egzamino balas nuo 1 iki 10
@@ -71,7 +71,6 @@ void vykdytiArray() {
 			}
 			cout << "Sugeneruota: " << kiek << " studentu." << endl;
 			continue;
-			//cout << "\n1-Irasyti viska ranka\n2-Generuoti tik pazymius\n3-Generuoti viska\n4-Baigti darba\n";
 		}
 		StudentasArray st;
 			cout << "Iveskite studento varda (arba 'stop',jei norite uzbaigti studentu irasyma): ";
