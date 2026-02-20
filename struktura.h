@@ -39,6 +39,12 @@ struct StudentasArray {
 // Prototipai
 int gautiSkaiciu(string info, int min = 1, int max = 10);
 
+string genVarda();
+string genPavarde(string vardas);
+
+void genPazymius(vector<int>& paz, int& egz); // vektoriui
+void genPazymius(int*& paz, int& kiekis, int& egz); // masyvui
+
 void vykdytiVector();
 void vykdytiArray();
 
