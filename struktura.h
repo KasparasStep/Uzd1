@@ -35,6 +35,8 @@ struct StudentasArray {
 };
 
 // Prototipai
+int gautiSkaiciu(string info, int min = 1, int max = 10);
+
 void vykdytiVector();
 void vykdytiArray();
 
