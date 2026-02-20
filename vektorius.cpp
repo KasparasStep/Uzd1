@@ -18,8 +18,7 @@ double skaiciuotiGalutini(vector<int> v, int egz, int metodas) {
 
 void vykdytiVector() {
 	vector<StudentasVector> grupe;
-	int metodas;
-	cout << "Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): ";
+	int metodas = gautiSkaiciu("Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): ", 1, 2);
 	cin >> metodas;
 
 	while (true) {
@@ -32,8 +31,14 @@ void vykdytiVector() {
 
 		string input;
 		cout << "Iveskite namu darbu pazymius (1 - 10) (arba 'stop', jei norite uzbaigti namu darbu pazymiu irasyma): ";
-		while (cin >> input && input != "stop") {
-			try { st.paz.push_back(std::stoi(input)); } //keiciam string i int
+		while (true) {
+			cout << "Iveskite namu darbu pazymius (1 - 10) (arba 'stop', jei norite uzbaigti namu darbu pazymiu irasyma): ";
+			cin >> input;
+			if (input == "stop") break;
+			try { int paz = std::stoi(input); //keiciam string i int
+			if (paz >= 1 && paz<= 10) st.paz.push_back(paz);
+			else cout << "Pazymys turi buti tarp 1 ir 10, bandykite dar karta: ";
+			} 
 			catch (...) { cout << "Neteisingas pazymys, bandykite dar karta: "; }
 			}
 		cout << "Iveskite egzamino bala (1 - 10): ";
