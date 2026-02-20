@@ -127,7 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="c_masyvas.cpp" />
     <ClCompile Include="Uzd1.cpp" />
+    <ClCompile Include="vektorius.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="struktura.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -18,5 +18,16 @@
     <ClCompile Include="Uzd1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="c_masyvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vektorius.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="struktura.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
