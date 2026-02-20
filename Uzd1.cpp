@@ -37,22 +37,23 @@ string genVarda() {
 string genPavarde(string vardas) {
     static std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
     string Vpavardes[] = { "Kazlauskas", "Jankauskas", "Petrauskas", "Stankevicius", "Vasiliauskas", "Butkus", "Zukauskas", "Paulauskas", "Urbonas", "Kavaliauskas" };
-	string Mpavardes[] = { "Kazlauskaite", "Jankauskaite", "Petrauskaite", "Stankevicaite", "Vasiliauskaite", "Butkute", "Zukauskaite", "Paulauskaite", "Urbonaite", "Kavaliauskaite" };
-    if (!vardas.empty() && vardas.back()== 's')
-		return Vpavardes[mt() % 10];
-	return Mpavardes[mt() % 10];
-// klaidu valymas
-int gautiSkaiciu(string info, int min, int max) {
-    int sk;
-    while (true) {
-        cout << info;
-        if (cin >> sk && sk >= min && sk <= max) {
-            return sk;
-        }
-        else {
-            cout << "Klaida: iveskite tinkama skaiciu (" << min << " - " << max << ").\n";
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    string Mpavardes[] = { "Kazlauskaite", "Jankauskaite", "Petrauskaite", "Stankevicaite", "Vasiliauskaite", "Butkute", "Zukauskaite", "Paulauskaite", "Urbonaite", "Kavaliauskaite" };
+    if (!vardas.empty() && vardas.back() == 's')
+        return Vpavardes[mt() % 10];
+    return Mpavardes[mt() % 10];
+}
+    // klaidu valymas
+    int gautiSkaiciu(string info, int min, int max) {
+        int sk;
+        while (true) {
+            cout << info;
+            if (cin >> sk && sk >= min && sk <= max) {
+                return sk;
+            }
+            else {
+                cout << "Klaida: iveskite tinkama skaiciu (" << min << " - " << max << ").\n";
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
         }
     }
-}
