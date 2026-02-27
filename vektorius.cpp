@@ -152,7 +152,21 @@ void vykdytiVector() {
 	auto endRikiuoti = high_resolution_clock::now();
 	cout << "Rikiavimo laikas: " << duration_cast<std::chrono::seconds>(endRikiuoti - startRusiuoti).count() << " s" << endl;
 
-	
+	// isvedimo pasirinkimas
+
+	cout << "\nKur isvesti rezultatus?\n1 - I ekrana\n2 - I faila\n";
+	int isvestis = gautiSkaiciu("Pasirinkimas: ", 1, 2);
+
+	string failas = "";
+	if (isvestis == 2) {
+		cout<< "Iveskite failo pavadinima: ";
+		cin >> failas;
+	}
+
+	auto startIsvesti = high_resolution_clock::now();
+	spausdintiRezultatus(grupe, rodyti, failas);
+	auto endIsvesti = high_resolution_clock::now();
+	cout << "Isvedimo laikas: " << duration_cast<std::chrono::seconds>(endIsvesti - startIsvesti).count() << " s" << endl;
 }
 	// isvedimas su funkcija
 
