@@ -93,29 +93,74 @@ void vykdytiVector() {
     int metodas = gautiSkaiciu("Skaiciavimo metodas:\n1 - Vidurkis\n2 - Mediana\n3 - Abu.\nPasirinkimas: ", 1, 3);
 
     while (true) {
-        cout << "\n1 - Ranka\n2 - Generuoti tik pazymius\n3 - Generuoti viska\n4 - Skaityti is failo\n0 - Rodyti rezultata ir baigti\n";
+        cout << "\n--- MENIU ---\n";
+        cout << "1 - Irasyti viska ranka\n";
+        cout << "2 - Irasyti vardus ranka, generuoti tik pazymius\n";
+        cout << "3 - Generuoti viska (vardus ir pazymius)\n";
+        cout << "4 - Nuskaityti is failo\n";
+        cout << "0 - Baigti duomenu suvedima ir rikiuoti\n";
         int pas = gautiSkaiciu("Pasirinkimas: ", 0, 4);
+
         if (pas == 0) break;
 
-        if (pas == 4) {
-            string f; cout << "Failo vardas (.txt failas turi buti .cpp failu aplanke): "; cin >> f;
-            auto s = high_resolution_clock::now();
-            skaitytiIsFailo(f, grupe, metodas);
-            auto e = high_resolution_clock::now();
-            cout << "\nNuskaityta per: " << duration<double>(e - s).count() << " s\n";
+        if (pas == 1 || pas == 2) {
+            Studentas st;
+            cout << "Iveskite varda: "; cin >> st.vardas;
+            cout << "Iveskite pavarde: "; cin >> st.pavarde;
+
+            if (pas == 1) {
+                // 1 variantas: Viskas ranka
+                string input;
+                cout << "Iveskite ND pazymius (1-10). 'stop' - baigti: \n";
+                while (cin >> input && input != "stop") {
+                    try {
+                        int p = stoi(input);
+                        if (p >= 1 && p <= 10) st.paz.push_back(p);
+                        else cout << "Tik 1-10!\n";
+                    }
+                    catch (...) { cout << "Neteisingas ivestis!\n"; }
+                }
+                st.egz = gautiSkaiciu("Iveskite egzamino bala (1-10): ", 1, 10);
+            }
+            else {
+                // 2 variantas: generuojami tik pazymiai
+                genPazymius(st.paz, st.egz);
+                cout << "Sugeneruoti " << st.paz.size() << " pazymiai ir egzaminas.\n";
+            }
+            apskaiciuotiPagalMetoda(st, metodas);
+            grupe.push_back(move(st));
+
         }
         else if (pas == 3) {
+            // 3 variantas: Generuoti viska
             int kiek = gautiSkaiciu("Kiek studentu generuoti? ", 1, 1000000);
             for (int i = 0; i < kiek; i++) {
-                Studentas st; st.vardas = genVarda(); st.pavarde = genPavarde(st.vardas);
+                Studentas st;
+                st.vardas = genVarda();
+                st.pavarde = genPavarde(st.vardas);
                 genPazymius(st.paz, st.egz);
                 apskaiciuotiPagalMetoda(st, metodas);
                 grupe.push_back(move(st));
             }
+            cout << "Sugeneruota.\n";
+
+        }
+        else if (pas == 4) {
+            // 4 variantas: Iš failo
+            string f;
+            cout << "Iveskite failo pavadinima (pvz. studentai10000.txt): ";
+            cin >> f;
+            auto s = high_resolution_clock::now();
+            skaitytiIsFailo(f, grupe, metodas);
+            auto e = high_resolution_clock::now();
+            cout << "Nuskaityta per: " << duration<double>(e - s).count() << " s\n";
         }
     }
 
-    if (grupe.empty()) return;
+    if (grupe.empty()) {
+        cout << "Sarasas tuscias.\n";
+        return;
+    }
 
     // rusiavimas
 
@@ -126,12 +171,15 @@ void vykdytiVector() {
     auto startRusiuoti = high_resolution_clock::now();
 
     sort(grupe.begin(), grupe.end(), [rPasirinkimas, metodas](const Studentas& a, const Studentas& b) {
-        if (rPasirinkimas == 1) return a.vardas < b.vardas;
-        else if (rPasirinkimas == 2) return a.pavarde < b.pavarde;
-        else {
-            double galA = (metodas == 1 || metodas == 3) ? a.gal_vid : a.gal_med;
-            double galB = (metodas == 1 || metodas == 3) ? b.gal_vid : b.gal_med;
-            return galA > galB; // Didesni pazymiai pirmiau
+        switch (rPasirinkimas) {
+            case 1: return a.vardas < b.vardas;
+            case 2: return a.pavarde < b.pavarde;
+            case 3: {
+                double galA = (metodas == 2) ? a.gal_med : a.gal_vid;
+                double galB = (metodas == 2) ? b.gal_med : b.gal_vid;
+                return galA > galB;// mazejimo tvarka
+            }
+            default: return a.pavarde < b.pavarde;
         }
         });
 
