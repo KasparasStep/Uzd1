@@ -138,16 +138,21 @@ void vykdytiVector() {
 	int rodyti = gautiSkaiciu("Pasirinkimas: ", 1, 3);
 
 	cout << "Rikiuoti pagal: 1 - Varda, 2 - Pavarde, 3 - Rezultata\n";
-	int rikiuoti = gautiSkaiciu("Pasirinkimas: ", 1, 3);
+	int rusiuoti = gautiSkaiciu("Pasirinkimas: ", 1, 3);
 
-	// rusiavimas
+	// rusiuoti
 
-	sort(grupe.begin(), grupe.end(), [rikiuoti, rodyti](const Studentas& a, const Studentas& b) {
-		if (rikiuoti == 1) return a.vardas < b.vardas;
-		else if (rikiuoti == 2) return a.pavarde < b.pavarde;
+	auto startRusiuoti = high_resolution_clock::now();
+	sort(grupe.begin(), grupe.end(), [rusiuoti, rodyti](const Studentas& a, const Studentas& b) {
+		if (rusiuoti == 1) return a.vardas < b.vardas;
+		else if (rusiuoti == 2) return a.pavarde < b.pavarde;
 		else if (rodyti == 2) return a.gal_med > b.gal_med;
 		else return a.gal_vid > b.gal_vid;
 		});
+	auto endRikiuoti = high_resolution_clock::now();
+	cout << "Rikiavimo laikas: " << duration_cast<std::chrono::seconds>(endRikiuoti - startRusiuoti).count() << " s" << endl;
+
+	
 }
 	// isvedimas su funkcija
 

@@ -30,6 +30,8 @@ using std::cerr;
 using std::stringstream;
 using std::move;
 using std::ostream;
+using std::chrono::high_resolution_clock;
+using std::chrono::duration_cast;
 
 // paliktas tik vektorinis variantas
 struct Studentas {
