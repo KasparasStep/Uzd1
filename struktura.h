@@ -53,4 +53,4 @@ double skaiciuotiVidurki(const vector<int>& paz); //uztenka suskaiciuoti ir nere
 double skaiciuotiMediana(vector<int> paz); //reikia rusiuoti, tai perduodam be const
 void skaiciuotiAbu(Studentas& s);
 
-int skaitytiIsFailo(const string& failas, vector<Studentas>& grupe);
+void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe);
