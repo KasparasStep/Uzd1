@@ -1,4 +1,6 @@
 #pragma once
+// struktura.h
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -6,6 +8,9 @@
 #include <algorithm>
 #include <random>
 #include <chrono>
+#include <limits>
+#include <fstream>
+#include <sstream>
 
 using std::cin;
 using std::cout;
@@ -19,34 +24,27 @@ using std::sort;
 using std::fixed;
 using std::setprecision;
 
-// Struct vektoriu versijai
-struct StudentasVector {
+// paliktas tik vektorinis variantas
+struct Studentas {
     string vardas, pavarde;
     vector<int> paz;
     int egz;
-    double rez;
+    double gal_vid;
+    double gal_med;
 };
 
-// Struct masyvo versijai
-struct StudentasArray {
-    string vardas, pavarde;
-    int* paz = nullptr;
-    int kiekis = 0;
-    int egz;
-    double rez;
-};
 
 // Prototipai
-int gautiSkaiciu(string info, int min = 1, int max = 10);
+int gautiSkaiciu(string info, int min, int max);
+
+int skaitytiIsFailo(const string& failoVardas, vector<Studentas>& studentai);
 
 string genVarda();
 string genPavarde(string vardas);
 
 void genPazymius(vector<int>& paz, int& egz); // vektoriui
-void genPazymius(int*& paz, int& kiekis, int& egz); // masyvui
 
 void vykdytiVector();
-void vykdytiArray();
 
-double skaiciuotiGalutini(vector<int> v, int egz, int metodas);
-double skaiciuotiGalutini(int* arr, int n, int egz, int metodas);
+double skaiciuotiVidurki(const vector<int>& paz); //uztenka suskaiciuoti ir nereikia kopijuoti
+double skaiciuotiMediana(vector<int> paz); //reikia rusiuoti, tai perduodam be const
