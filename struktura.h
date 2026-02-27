@@ -54,3 +54,5 @@ double skaiciuotiMediana(vector<int> paz); //reikia rusiuoti, tai perduodam be c
 void skaiciuotiAbu(Studentas& s);
 
 void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe);
+
+void spausdintiRezultatus(const std::vector<Studentas>& grupe, int rodyti, const std::string& failas);

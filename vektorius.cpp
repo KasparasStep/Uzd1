@@ -145,8 +145,8 @@ void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe) {
 	sort(grupe.begin(), grupe.end(), [rikiuoti, rodyti](const Studentas& a, const Studentas& b) {
 		if (rikiuoti == 1) return a.vardas < b.vardas;
 		else if (rikiuoti == 2) return a.pavarde < b.pavarde;
-		else if (rodyti == 2) return a.gal_med < b.gal_med;
-		else return a.gal_vid < b.gal_vid;
+		else if (rodyti == 2) return a.gal_med > b.gal_med;
+		else return a.gal_vid > b.gal_vid;
 		});
 
 	// isvedimas
