@@ -1,6 +1,5 @@
 #pragma once
 // struktura.h
-
 #include <iostream>
 #include <vector>
 #include <string>
@@ -42,20 +41,16 @@ struct Studentas {
     double gal_med;
 };
 
-
-// Prototipai
+// Funkcijų prototipai
 int gautiSkaiciu(string info, int min, int max);
-
 string genVarda();
 string genPavarde(string vardas);
-void genPazymius(vector<int>& paz, int& egz); // vektoriui
+void genPazymius(vector<int>& paz, int& egz);
 
-void vykdytiVector();
-
-double skaiciuotiVidurki(const vector<int>& paz); //uztenka suskaiciuoti ir nereikia kopijuoti
-double skaiciuotiMediana(vector<int> paz); //reikia rusiuoti, tai perduodam be const
+double skaiciuotiVidurki(const vector<int>& paz);
+double skaiciuotiMediana(vector<int> paz);
 void apskaiciuotiPagalMetoda(Studentas& st, int metodas);
 
 void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas);
-
-void spausdintiRezultatus(const std::vector<Studentas>& grupe, int rodyti, const std::string& failas);
+void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const string& failas);
+void vykdytiVector();
