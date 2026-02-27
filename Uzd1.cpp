@@ -45,18 +45,18 @@ string genPavarde(string vardas) {
     }
         return Mpavardes[mt() % 10];
 }
-    // klaidu valymas
-    int gautiSkaiciu(string info, int min, int max) {
-        int sk;
-        while (true) {
-            cout << info;
-            if (cin >> sk && sk >= min && sk <= max) {
-                return sk;
-            }
-            else {
-                cout << "Klaida: iveskite tinkama skaiciu (" << min << " - " << max << ").\n";
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            }
+// klaidu valymas
+int gautiSkaiciu(string info, int min, int max) {
+    int sk;
+    while (true) {
+        cout << info;
+        if (cin >> sk && sk >= min && sk <= max) {
+           return sk;
+        }
+        else {
+            cout << "Klaida: iveskite tinkama skaiciu (" << min << " - " << max << ").\n";
+            cin.clear();
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
+}
