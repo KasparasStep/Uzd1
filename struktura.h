@@ -29,6 +29,7 @@ using std::getline;
 using std::cerr;
 using std::stringstream;
 using std::move;
+using std::ostream;
 
 // paliktas tik vektorinis variantas
 struct Studentas {

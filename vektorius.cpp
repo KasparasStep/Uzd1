@@ -62,13 +62,13 @@ void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe) {
 	cout << "Duomenys nuskaityti." << endl;
 }
 
-	void vykdytiVector() {
+void vykdytiVector() {
 	vector<Studentas> grupe;
 
 	int metodas = gautiSkaiciu("Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): \nPasirinkimas: ", 1, 2);
 
 	cout << "\n1-Irasyti viska ranka\n2-Generuoti tik pazymius\n3-Generuoti viska\n4-Nuskaityti is failo\n0-Baigti darba\n";
-	
+
 
 	while (true) {
 		int pasirinkimas = gautiSkaiciu("Pasirinkimas: ", 0, 4);
@@ -124,7 +124,7 @@ void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe) {
 		else genPazymius(st.paz, st.egz);
 
 		skaiciuotiAbu(st);
-		grupe.push_back(move(st));	
+		grupe.push_back(move(st));
 	}
 
 	if (grupe.empty()) {
@@ -148,19 +148,41 @@ void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe) {
 		else if (rodyti == 2) return a.gal_med > b.gal_med;
 		else return a.gal_vid > b.gal_vid;
 		});
+}
+	// isvedimas su funkcija
 
-	// isvedimas
+void spausdintiRezultatus(const std::vector<Studentas>&grupe, int rodyti, const std::string & failas) {
+		ostream* out = &cout;//spausdiname i ekrana
+			ofstream fout;
+
+		// jei failas nurodytas, spausdiname i faila
+		if (!failas.empty()) {
+			fout.open(failas);
+			if (!fout) {
+				cerr << "Klaida: nepavyko atidaryti failo " << failas << " rasymui." << endl;
+				return;
+			}
+			out = &fout; //nukreipiame i faila
+
+		}
+
+		(*out) << left << setw(15) << "Vardas" << setw(15) << "Pavarde";
+		if (rodyti == 1 || rodyti == 3) (*out) << setw(20) << "Galutinis (Vid.)";
+		if (rodyti == 2 || rodyti == 3) (*out) << setw(20) << "Galutinis (Med.)";
+		(*out) << endl << string(70, '-') << endl;
+
+		for (const auto& st : grupe) {
+			(*out) << left << setw(15) << st.vardas << setw(15) << st.pavarde;
+			if (rodyti == 1 || rodyti == 3) (*out) << fixed << setprecision(2) << setw(20) << st.gal_vid;
+			if (rodyti == 2 || rodyti == 3) (*out) << fixed << setprecision(2) << setw(20) << st.gal_med;
+			(*out) << endl;
+		}
+
+		if (!failas.empty()){
+			fout.close();
+			cout << "Rezultatai issaugoti faile: " << failas << endl;
+		}
+}
 	
-	cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde";
-	if (rodyti == 1 || rodyti == 3) cout << setw(20) << "Galutinis (Vid.)";
-	if (rodyti == 2 || rodyti == 3) cout << setw(20) << "Galutinis (Med.)";
-	cout << endl << string(70, '-') << endl;
-
-	for (const auto& st : grupe) {
-		cout << left << setw(15) << st.vardas << setw(15) << st.pavarde;
-		if (rodyti == 1 || rodyti == 3) cout << fixed << setprecision(2) << setw(20) << st.gal_vid;
-		if (rodyti == 2 || rodyti == 3) cout << fixed << setprecision(2) << setw(20) << st.gal_med;
-		cout << endl;
-	}
-	}
+	
 	
