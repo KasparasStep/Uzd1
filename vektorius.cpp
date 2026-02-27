@@ -29,12 +29,13 @@ double skaiciuotiMediana(vector<int> paz) {
 	}
 }
 
-void skaiciuotiAbu(Studentas& s) {
-	s.gal_vid = 0.4 * skaiciuotiVidurki(s.paz) + 0.6 * s.egz;
-	s.gal_med = 0.4 * skaiciuotiMediana(s.paz) + 0.6 * s.egz;
+void apskaiciuotiPagalMetoda(Studentas& st, int metodas) {
+	if (metodas == 1 || metodas == 3)
+		st.gal_vid = skaiciuotiVidurki(st.paz) * 0.4 + st.egz * 0.6;
+	if (metodas == 2 || metodas == 3)
+		st.gal_med = skaiciuotiMediana(st.paz) * 0.4 + st.egz * 0.6;
 }
-
-void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe) {
+void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas) {
 	ifstream in(failas);
 	if (!in) {
 		cerr << "Klaida: nepavyko atidaryti failo " << failas << endl;
@@ -54,7 +55,7 @@ void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe) {
 			st.egz = visi.back(); // paskutinis skaicius yra egzaminas
 			visi.pop_back(); // pašaliname egzaminą iš pazymiu vektoriaus
 			st.paz = move(visi); // perkeliam pazymius i studento struktura
-			skaiciuotiAbu(st); // skaiciuojame abu galutinius
+			apskaiciuotiPagalMetoda(st, metodas); // skaiciuojame
 			grupe.push_back(move(st)); // perkeliam studento struktura i grupe
 		}
 	}
@@ -69,7 +70,6 @@ void vykdytiVector() {
 
 	cout << "\n1-Irasyti viska ranka\n2-Generuoti tik pazymius\n3-Generuoti viska\n4-Nuskaityti is failo\n0-Baigti darba\n";
 
-
 	while (true) {
 		int pasirinkimas = gautiSkaiciu("Pasirinkimas: ", 0, 4);
 		if (pasirinkimas == 0) break;
@@ -78,7 +78,7 @@ void vykdytiVector() {
 			string failas;
 			cout << "Iveskite failo pavadinima: ";
 			cin >> failas;
-			skaitytiIsFailo(failas, grupe);
+			skaitytiIsFailo(failas, grupe, metodas);
 			continue;
 		}
 
@@ -97,7 +97,7 @@ void vykdytiVector() {
 				st.vardas = genVarda();
 				st.pavarde = genPavarde(st.vardas);
 				genPazymius(st.paz, st.egz);
-				skaiciuotiAbu(st);
+				apskaiciuotiPagalMetoda(st, metodas);
 				grupe.push_back(st);
 			}
 
@@ -123,7 +123,7 @@ void vykdytiVector() {
 		}
 		else genPazymius(st.paz, st.egz);
 
-		skaiciuotiAbu(st);
+		apskaiciuotiPagalMetoda(st, metodas);
 		grupe.push_back(move(st));
 	}
 
@@ -132,10 +132,7 @@ void vykdytiVector() {
 		return;
 	}
 
-	//isvesties pasirinkimas
-
-	cout << "\nPasirinkite, ka isvesti. 1 - Tik vidurki, 2 - Tik mediana, 3 - Abu\n";
-	int rodyti = gautiSkaiciu("Pasirinkimas: ", 1, 3);
+	//rusiavimo kriterijus
 
 	cout << "Rikiuoti pagal: 1 - Varda, 2 - Pavarde, 3 - Rezultata\n";
 	int rusiuoti = gautiSkaiciu("Pasirinkimas: ", 1, 3);
@@ -143,16 +140,16 @@ void vykdytiVector() {
 	// rusiuoti
 
 	auto startRusiuoti = high_resolution_clock::now();
-	sort(grupe.begin(), grupe.end(), [rusiuoti, rodyti](const Studentas& a, const Studentas& b) {
+	sort(grupe.begin(), grupe.end(), [rusiuoti, metodas](const Studentas& a, const Studentas& b) {
 		if (rusiuoti == 1) return a.vardas < b.vardas;
 		else if (rusiuoti == 2) return a.pavarde < b.pavarde;
-		else if (rodyti == 2) return a.gal_med > b.gal_med;
+		else if (metodas == 2) return a.gal_med > b.gal_med;
 		else return a.gal_vid > b.gal_vid;
 		});
 	auto endRikiuoti = high_resolution_clock::now();
 	cout << "Rikiavimo laikas: " << duration_cast<std::chrono::seconds>(endRikiuoti - startRusiuoti).count() << " s" << endl;
 
-	// isvedimo pasirinkimas
+	// isvedimo vietos pasirinkimas
 
 	cout << "\nKur isvesti rezultatus?\n1 - I ekrana\n2 - I faila\n";
 	int isvestis = gautiSkaiciu("Pasirinkimas: ", 1, 2);
@@ -164,7 +161,7 @@ void vykdytiVector() {
 	}
 
 	auto startIsvesti = high_resolution_clock::now();
-	spausdintiRezultatus(grupe, rodyti, failas);
+	spausdintiRezultatus(grupe, metodas, failas);
 	auto endIsvesti = high_resolution_clock::now();
 	cout << "Isvedimo laikas: " << duration_cast<std::chrono::seconds>(endIsvesti - startIsvesti).count() << " s" << endl;
 }

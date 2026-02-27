@@ -54,8 +54,8 @@ void vykdytiVector();
 
 double skaiciuotiVidurki(const vector<int>& paz); //uztenka suskaiciuoti ir nereikia kopijuoti
 double skaiciuotiMediana(vector<int> paz); //reikia rusiuoti, tai perduodam be const
-void skaiciuotiAbu(Studentas& s);
+void apskaiciuotiPagalMetoda(Studentas& st, int metodas);
 
-void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe);
+void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas);
 
 void spausdintiRezultatus(const std::vector<Studentas>& grupe, int rodyti, const std::string& failas);
