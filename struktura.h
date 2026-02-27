@@ -31,6 +31,12 @@ using std::move;
 using std::ostream;
 using std::chrono::high_resolution_clock;
 using std::chrono::duration_cast;
+using std::chrono::duration;
+using std::chrono::milliseconds;
+using std::numeric_limits;
+using std::mt19937;
+using std::chrono::steady_clock;
+
 
 // paliktas tik vektorinis variantas
 struct Studentas {
