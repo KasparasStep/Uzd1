@@ -151,9 +151,16 @@ void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe) {
 
 	// isvedimas
 	
-	cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(20) << "Galutinis Pazymys" << endl;
+	cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde";
+	if (rodyti == 1 || rodyti == 3) cout << setw(20) << "Galutinis (Vid.)";
+	if (rodyti == 2 || rodyti == 3) cout << setw(20) << "Galutinis (Med.)";
+	cout << endl << string(70, '-') << endl;
+
 	for (const auto& st : grupe) {
-		cout << left << setw(15) << st.vardas << setw(15) << st.pavarde << setw(20) << fixed << setprecision(2) << st.rez << endl;
+		cout << left << setw(15) << st.vardas << setw(15) << st.pavarde;
+		if (rodyti == 1 || rodyti == 3) cout << fixed << setprecision(2) << setw(20) << st.gal_vid;
+		if (rodyti == 2 || rodyti == 3) cout << fixed << setprecision(2) << setw(20) << st.gal_med;
+		cout << endl;
 	}
-}
+	}
 	
