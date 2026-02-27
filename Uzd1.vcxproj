@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="c_masyvas.cpp" />
     <ClCompile Include="Uzd1.cpp" />
     <ClCompile Include="vektorius.cpp" />
   </ItemGroup>

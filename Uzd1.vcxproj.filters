@@ -18,9 +18,6 @@
     <ClCompile Include="Uzd1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="c_masyvas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vektorius.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

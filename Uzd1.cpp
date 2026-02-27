@@ -6,7 +6,6 @@ int main() {
         cout << "\n===========================================\n";
         cout << "Pasirinkite duomenu saugojimo buda: \n";
         cout << "1 - Naudoti std::vector\n";
-        cout << "2 - Naudoti C masyvus (dinamine atmintis)\n";
 		cout << "0 - Baigti programa";
         cout << "\n===========================================\n";
         cout << "Pasirinkimas: ";
@@ -17,7 +16,7 @@ int main() {
                 break;
             }
             if (pasirinkimas == 1) vykdytiVector();
-            else if (pasirinkimas == 2) vykdytiArray();
+            
             else cout << "Neteisingas pasirinkimas.\n";
         }
         else {
