@@ -42,3 +42,46 @@ Kai duomenys įvedami rankiniu būdų, įvedimą galima sustabdyti įrašant "st
 
 Programoje yra minimalus klaidų valdymas. Naudojama try-catch ir std::stoi.
 Taip pat naudojama cin.clear() ir cin.ignore().
+
+v0.2 dokumentacija
+
+Panaikintas c_masyvas.cpp bei visos funkcijos susijusios su masyvais.
+Dabar generuojama 20 pazymiu.
+Galimybe nuskaityti info is failo bei irasyti rezultata i faila.
+
+Testavimas:
+Su 10000: nuskaitymo vidurkis 0.379853 s (DEBUG); 0.03973865 (RELEASE);
+
+SU 100000: nuskaitymo vidurkis 4.678703 s (DEBUG); 0.4749995 (RELEASE);
+
+Su 1000000: nuskaitymo vidurkis 24.250467 s (DEBUG); 2.099945 (RELEASE);
+
+Kiti testavimo duomenys:
+
+Testavimas vyksta iprastomis salygomis. Tai yra, kompiuteryje atidarytas tik visual studio, notepad++, o fone veikia windows defender ir AMD software.
+studentai10000.txt:
+	Nuskaitymas		Rusiavimas	Spausdinimas
+	
+	1. 0.381866 s	0.0522 s	0.0661 s  
+	2. 0.379624 s	0.0525 s	0.0675 s	( 14.2212 s (spausdinimas i konsole))
+	3. 0.379853 s	0.0513 s	0.0653 s
+	4. 0.0397989 s	0.0015 s	0.0264 s (RELEASE)
+	5. 0.0396784 s	0.0015 s	0.0269 s (RELEASE)
+	
+studentai100000.txt:
+	Nuskaitymas		Rusiavimas	Spausdinimas
+	
+	1. 4.66092 s	0.6027 s	0.6351 s
+	2. 4.67711 s	0.5977 s	0.6459 s
+	3. 4.69808 s	0.5925 s	0.6422 s	( 136.9455 s (spausdinimas i konsole))
+	4. 0.476265 s	0.0133 s	0.2574 s (RELEASE)
+	5. 0.473734 s	0.0187 s	0.2581 s (RELEASE)	125.4006 s (spausdinimas i konsole)
+	
+studentai1000000.txt:
+	Nuskaitymas		Rusiavimas	Spausdinimas
+	
+	1. 24.2544 s	5.9000 s	6.1552 s
+	2. 24.2507 s	10.6223 s	6.1837 s
+	3. 24.2463 s	10.6634 s	6.9418 s	( 1306.3533 s (spausdinimas i konsole))
+	4. 2.09501 s	0.2144 s	2.4617 s (RELEASE)
+	5. 2.10488 s	0.0860 s	2.4743 s (RELEASE)
