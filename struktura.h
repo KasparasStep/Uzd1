@@ -23,6 +23,12 @@ using std::endl;
 using std::sort;
 using std::fixed;
 using std::setprecision;
+using std::ifstream;
+using std::ofstream;
+using std::getline;
+using std::cerr;
+using std::stringstream;
+using std::move;
 
 // paliktas tik vektorinis variantas
 struct Studentas {
@@ -37,14 +43,14 @@ struct Studentas {
 // Prototipai
 int gautiSkaiciu(string info, int min, int max);
 
-int skaitytiIsFailo(const string& failoVardas, vector<Studentas>& studentai);
-
 string genVarda();
 string genPavarde(string vardas);
-
 void genPazymius(vector<int>& paz, int& egz); // vektoriui
 
 void vykdytiVector();
 
 double skaiciuotiVidurki(const vector<int>& paz); //uztenka suskaiciuoti ir nereikia kopijuoti
 double skaiciuotiMediana(vector<int> paz); //reikia rusiuoti, tai perduodam be const
+void skaiciuotiAbu(Studentas& s);
+
+int skaitytiIsFailo(const string& failas, vector<Studentas>& grupe);

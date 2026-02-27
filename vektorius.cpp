@@ -8,34 +8,81 @@ void genPazymius(vector<int>& paz, int& egz) {
 	egz = mt() % 10 + 1; // Egzamino balas nuo 1 iki 10
 }
 
-double skaiciuotiGalutini(vector<int> v, int egz, int metodas) {
-	if (v.empty()) return 0.6 * egz; // Jei nera pazymiu, galutinis bus 60% egzamino
-	double vid_med; // Vidurkis arba mediana
-	if (metodas == 1) {
-		double suma = 0;
-		for (int p : v) suma += p;
-		vid_med = suma / v.size();
+double skaiciuotiVidurki(const vector<int>& paz) {
+	if (paz.empty()) return 0.0; // Apsauga nuo dalybos iš nulio, jei nera pazymiu uz N.D.
+	double suma = 0;
+	for (int p : paz) {
+		suma += p;
 	}
-	else {
-		sort(v.begin(), v.end());
-		size_t n = v.size();
-		vid_med = (n % 2 == 0) ? (v[n / 2 - 1] + v[n / 2]) / 2.0 : v[n / 2];
-	}
-	return 0.4 * vid_med + 0.6 * egz;
+	return suma / paz.size();
 }
 
-void vykdytiVector() {
-	vector<StudentasVector> grupe;
+double skaiciuotiMediana(vector<int> paz) {
+	if (paz.empty()) return 0.0;
+	sort(paz.begin(), paz.end());
+	size_t n = paz.size();
+	if (n % 2 == 0) {
+		return paz[n / 2 - 1] + paz[n / 2] / 2.0; // Lyginis skaičius elementų, grąžina vidurki dviejų vidurinių
+	}
+	else {
+		return paz[n / 2]; // Nelyginis skaičius elementų, grąžina vidurki dviejų vidurinių
+	}
+}
+
+void skaiciuotiAbu(Studentas& s) {
+	s.gal_vid = 0.4 * skaiciuotiVidurki(s.paz) + 0.6 * s.egz;
+	s.gal_med = 0.4 * skaiciuotiMediana(s.paz) + 0.6 * s.egz;
+}
+
+void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe) {
+	ifstream in(failas);
+	if (!in) {
+		cerr << "Klaida: nepavyko atidaryti failo " << failas << endl;
+		return;
+	}
+	string line;
+	getline(in, line); // Praleidžiame antraštę
+	while (getline(in, line)) {
+		if (line.empty()) continue;
+		stringstream ss(line);
+		Studentas st;
+		ss >> st.vardas >> st.pavarde;
+		int p; // pazymys
+		vector<int> visi; //visi pazymiai
+		while (ss >> p) { visi.push_back(p); } // skaitome visus pazymius
+		if (!visi.empty()) {
+			st.egz = visi.back(); // paskutinis skaicius yra egzaminas
+			visi.pop_back(); // pašaliname egzaminą iš pazymiu vektoriaus
+			st.paz = move(visi); // perkeliam pazymius i studento struktura
+			skaiciuotiAbu(st); // skaiciuojame abu galutinius
+			grupe.push_back(move(st)); // perkeliam studento struktura i grupe
+		}
+	}
+	in.close();
+	cout << "Duomenys nuskaityti." << endl;
+}
+
+	void vykdytiVector() {
+	vector<Studentas> grupe;
+
 	int metodas = gautiSkaiciu("Pasirinkite, kaip skaiciuoti galutini pazymi (1 - Vidurkis, 2 - Mediana): \nPasirinkimas: ", 1, 2);
 
-	cout << "\n1-Irasyti viska ranka\n2-Generuoti tik pazymius\n3-Generuoti viska\n4-Baigti darba\n";
+	cout << "\n1-Irasyti viska ranka\n2-Generuoti tik pazymius\n3-Generuoti viska\n4-Nuskaityti is failo\n0-Baigti darba\n";
 	
 
 	while (true) {
-		int pasirinkimas = gautiSkaiciu("Pasirinkimas: ", 1, 4);
-		if (pasirinkimas == 4) break;
+		int pasirinkimas = gautiSkaiciu("Pasirinkimas: ", 0, 4);
+		if (pasirinkimas == 0) break;
 
-		StudentasVector st;
+		if (pasirinkimas == 4) {
+			string failas;
+			cout << "Iveskite failo pavadinima: ";
+			cin >> failas;
+			skaitytiIsFailo(failas, grupe);
+			continue;
+		}
+
+		Studentas st;
 		if (pasirinkimas == 1 || pasirinkimas == 2) {
 			cout << "Iveskite studento varda (arba 'stop',jei norite uzbaigti studentu irasyma): \n";
 			cin >> st.vardas;
@@ -46,11 +93,11 @@ void vykdytiVector() {
 		else if (pasirinkimas == 3) {
 			int kiek = gautiSkaiciu("Kiek studentu generuoti? ", 1, 1000000);
 			for (int i = 0; i < kiek; i++) {
-				StudentasVector st;
+				Studentas st;
 				st.vardas = genVarda();
 				st.pavarde = genPavarde(st.vardas);
 				genPazymius(st.paz, st.egz);
-				st.rez = skaiciuotiGalutini(st.paz, st.egz, metodas);
+				skaiciuotiAbu(st);
 				grupe.push_back(st);
 			}
 
@@ -76,11 +123,33 @@ void vykdytiVector() {
 		}
 		else genPazymius(st.paz, st.egz);
 
-		st.rez = skaiciuotiGalutini(st.paz, st.egz, metodas);
-		grupe.push_back(st);
-		
-		
+		skaiciuotiAbu(st);
+		grupe.push_back(move(st));	
 	}
+
+	if (grupe.empty()) {
+		cout << "Nera studentu duomenu." << endl;
+		return;
+	}
+
+	//isvesties pasirinkimas
+
+	cout << "\nPasirinkite, ka isvesti. 1 - Tik vidurki, 2 - Tik mediana, 3 - Abu\n";
+	int rodyti = gautiSkaiciu("Pasirinkimas: ", 1, 3);
+
+	cout << "Rikiuoti pagal: 1 - Varda, 2 - Pavarde, 3 - Rezultata\n";
+	int rikiuoti = gautiSkaiciu("Pasirinkimas: ", 1, 3);
+
+	// rusiavimas
+
+	sort(grupe.begin(), grupe.end(), [rikiuoti, rodyti](const Studentas& a, const Studentas& b) {
+		if (rikiuoti == 1) return a.vardas < b.vardas;
+		else if (rikiuoti == 2) return a.pavarde < b.pavarde;
+		else if (rodyti == 2) return a.gal_med < b.gal_med;
+		else return a.gal_vid < b.gal_vid;
+		});
+
+	// isvedimas
 	
 	cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(20) << "Galutinis Pazymys" << endl;
 	for (const auto& st : grupe) {
