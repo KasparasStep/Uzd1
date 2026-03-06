@@ -23,23 +23,18 @@ int gautiSkaiciu(string info, int min, int max) {
         try {
             if (!(cin >> sk)) {
                 cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                throw std::invalid_argument("KLAIDA: ivestas ne skaicius.");
+                cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                throw std::invalid_argument("Ivestas ne skaicius!");
             }
-            if (cin >> sk && sk >= min && sk <= max) {
-                return sk;
+            if (sk < min || sk > max) {
+                throw std::out_of_range("Skaicius nepriklauso nurodytam intervalui!");
             }
-            else if (sk < min || sk > max) {
-                throw std::out_of_range("KLAIDA: ivestas skaicius uz leistinu ribu.");
-                cout << "Klaida: iveskite tinkama skaiciu (" << min << " - " << max << ").\n";
-                cin.clear();
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            }
+            // Sėkmės atveju išvalome buferį, kad neliktų \n simbolio
+            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+            return sk;
         }
         catch (const std::exception& e) {
-            cout << "Klaida: " << e.what() << " Bandykite dar karta." << endl;
-            cin.clear();
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cout << "Klaida: " << e.what() << " Bandykite dar karta.\n";
         }
     }
 }
