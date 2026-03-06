@@ -1,5 +1,4 @@
 #include "struktura.h"
-#include "funkcijos.cpp"
 int main() {
     try {
         vykdytiVector();
