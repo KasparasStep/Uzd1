@@ -59,7 +59,7 @@ void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas
         cout << "Duomenys nuskaityti sėkmingai.\n";
     }
     catch (const std::exception& e) {
-        cerr << "Klaida skaitant faila: " << e.what() << endl;
+        cerr << "Klaida skaitant failą: " << e.what() << endl;
     }
 }
 
