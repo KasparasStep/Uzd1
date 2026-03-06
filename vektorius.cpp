@@ -33,37 +33,45 @@ void apskaiciuotiPagalMetoda(Studentas& st, int metodas) {
 }
 
 void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas) {
-    ifstream in(failas);
-    if (!in) {
-        cout << "KLAIDA: Failas '" << failas << "' nerastas!\n";
-        cout << "Isitikinkite, kad failas yra ten pat, kur .cpp failai.\n";
-        return;
-    }
-
-    string line;
-    getline(in, line); // Antraštė praleidžiama
-
-    while (getline(in, line)) {
-        if (line.empty()) continue;
-        stringstream ss(line);
-        Studentas st;
-
-        // Nuskaitome vardą ir pavardę
-        if (!(ss >> st.vardas >> st.pavarde)) continue;
-
-        int p;
-        while (ss >> p) {
-            st.paz.push_back(p);
+    try {
+        ifstream in(failas);
+        if (!in) {
+            cout << "KLAIDA: Failas '" << failas << "' nerastas!\n";
+            cout << "Isitikinkite, kad failas yra ten pat, kur .cpp failai.\n";
+            return;
         }
 
-        if (!st.paz.empty()) {
-            st.egz = st.paz.back();
-            st.paz.pop_back();
-            apskaiciuotiPagalMetoda(st, metodas);
-            grupe.push_back(move(st));
+        string line;
+        if (!getline(in, line)) throw std::runtime_error("Failas yra tuscias");
+        getline(in, line); // Antraštė praleidžiama
+
+        while (getline(in, line)) {
+            if (line.empty()) continue;
+            stringstream ss(line);
+            Studentas st;
+
+            // Nuskaitome vardą ir pavardę
+            if (!(ss >> st.vardas >> st.pavarde)) continue;
+
+            int p;
+            while (ss >> p) {
+                st.paz.push_back(p);
+            }
+
+            if (st.paz.size() < 1) continue; // Reikia bent vieno pažymio
+
+            if (!st.paz.empty()) {
+                st.egz = st.paz.back();
+                st.paz.pop_back();
+                apskaiciuotiPagalMetoda(st, metodas);
+                grupe.push_back(move(st));
+            }
         }
+        in.close();
     }
-    in.close();
+    catch (const std::exception& e) {
+        cerr << "KLAIDA: " << e.what() << endl;
+    }
 }
 
 void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const string& failas) {
