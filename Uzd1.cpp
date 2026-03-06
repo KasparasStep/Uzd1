@@ -36,7 +36,8 @@ int gautiSkaiciu(string info, int min, int max) {
             if (cin >> sk && sk >= min && sk <= max) {
                 return sk;
             }
-            else {
+            else if (sk < min || sk > max){
+				throw std::out_of_range("KLAIDA: ivestas skaicius uz leistinu ribu.");
                 cout << "Klaida: iveskite tinkama skaiciu (" << min << " - " << max << ").\n";
                 cin.clear();
                 cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
