@@ -1,4 +1,5 @@
 #include "struktura.h"
+#include "funkcijos.h"
 
 
 // Atsitiktinių skaičių generatorius

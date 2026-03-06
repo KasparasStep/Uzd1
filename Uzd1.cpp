@@ -1,5 +1,5 @@
 #include "struktura.h"
-
+#include "funkcijos.h"
 int main() {
     vykdytiVector();
     return 0;
