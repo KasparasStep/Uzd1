@@ -28,6 +28,11 @@ int gautiSkaiciu(string info, int min, int max) {
     while (true) {
         cout << info;
         try {
+            if (!(cin >> sk)) {
+                cin.clear();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				throw std::invalid_argument("KLAIDA: ivestas ne skaicius.");
+            }
             if (cin >> sk && sk >= min && sk <= max) {
                 return sk;
             }
