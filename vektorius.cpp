@@ -56,7 +56,7 @@ void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas
                 grupe.push_back(move(st));
             }
         }
-        cout << "Duomenys nuskaityti sekmingai.\n";
+        cout << "Duomenys nuskaityti sėkmingai.\n";
     }
     catch (const std::exception& e) {
         cerr << "Klaida skaitant faila: " << e.what() << endl;
@@ -72,7 +72,7 @@ void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const stri
         if (fout) out = &fout;
     }
 
-    (*out) << left << setw(15) << "Vardas" << setw(15) << "Pavarde";
+    (*out) << left << setw(15) << "Vardas" << setw(15) << "Pavardė";
     if (rodyti == 1 || rodyti == 3) (*out) << setw(20) << "Galutinis (Vid.)";
     if (rodyti == 2 || rodyti == 3) (*out) << setw(20) << "Galutinis (Med.)";
     (*out) << endl << string(70, '-') << endl;
@@ -84,47 +84,47 @@ void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const stri
         (*out) << endl;
     }
 	auto endSpausd = high_resolution_clock::now();
-	cout << "\nSpausdinimas uztruko: " << fixed << setprecision(4) << duration<double>(endSpausd - startSpausd).count() << " s\n";
+	cout << "\nSpausdinimas užtruko: " << fixed << setprecision(4) << duration<double>(endSpausd - startSpausd).count() << " s\n";
 }
 
 void vykdytiVector() {
     vector<Studentas> grupe;
-    int metodas = gautiSkaiciu("Skaiciavimo metodas:\n1 - Vidurkis\n2 - Mediana\n3 - Abu.\nPasirinkimas: ", 1, 3);
+    int metodas = gautiSkaiciu("Skaičiavimo metodas:\n1 - Vidurkis\n2 - Mediana\n3 - Abu.\nPasirinkimas: ", 1, 3);
 
     while (true) {
         cout << "\n--- MENIU ---\n";
-        cout << "1 - Irasyti viska ranka\n";
-        cout << "2 - Irasyti vardus ranka, generuoti tik pazymius\n";
-        cout << "3 - Generuoti viska (vardus ir pazymius)\n";
-        cout << "4 - Nuskaityti is failo\n";
-        cout << "0 - Baigti duomenu suvedima ir rikiuoti\n";
+        cout << "1 - Įrašyti viską ranka\n";
+        cout << "2 - Įrašyti vardus ranka, generuoti tik pažymius\n";
+        cout << "3 - Generuoti viską (vardus/pavardes ir pažymius)\n";
+        cout << "4 - Nuskaityti iš failo\n";
+        cout << "0 - Baigti duomenų suvedimą ir rikiuoti\n";
         int pas = gautiSkaiciu("Pasirinkimas: ", 0, 4);
 
         if (pas == 0) break;
 
         if (pas == 1 || pas == 2) {
             Studentas st;
-            cout << "Iveskite varda: "; cin >> st.vardas;
-            cout << "Iveskite pavarde: "; cin >> st.pavarde;
+            cout << "Įveskite vardą: "; cin >> st.vardas;
+            cout << "Įveskite pavardę: "; cin >> st.pavarde;
 
             if (pas == 1) {
                 // 1 variantas: Viskas ranka
                 string input;
-                cout << "Iveskite ND pazymius (1-10). 'stop' - baigti: \n";
+                cout << "Įveskite N.D. pažymius (1-10). 'stop' - baigti: \n";
                 while (cin >> input && input != "stop") {
                     try {
                         int p = stoi(input);
                         if (p >= 1 && p <= 10) st.paz.push_back(p);
                         else cout << "Tik 1-10!\n";
                     }
-                    catch (...) { cout << "Neteisingas ivestis!\n"; }
+                    catch (...) { cout << "Neteisingas skaičius!\n"; }
                 }
-                st.egz = gautiSkaiciu("Iveskite egzamino bala (1-10): ", 1, 10);
+                st.egz = gautiSkaiciu("Įveskite egzamino balą (1-10): ", 1, 10);
             }
             else {
                 // 2 variantas: generuojami tik pazymiai
                 genPazymius(st.paz, st.egz);
-                cout << "Sugeneruoti " << st.paz.size() << " pazymiai ir egzaminas.\n";
+                cout << "Sugeneruoti " << st.paz.size() << " pažymiai ir egzaminas.\n";
             }
             apskaiciuotiPagalMetoda(st, metodas);
             grupe.push_back(move(st));
@@ -132,7 +132,7 @@ void vykdytiVector() {
         }
         else if (pas == 3) {
             // 3 variantas: Generuoti viska
-            int kiek = gautiSkaiciu("Kiek studentu generuoti? ", 1, 1000000);
+            int kiek = gautiSkaiciu("Kiek studentų generuoti? ", 1, 1000000);
             for (int i = 0; i < kiek; i++) {
                 Studentas st;
                 st.vardas = genVarda();
@@ -147,7 +147,7 @@ void vykdytiVector() {
         else if (pas == 4) {
             // 4 variantas: Iš failo
             string f;
-            cout << "Iveskite failo pavadinima (pvz. studentai10000.txt): ";
+            cout << "Įveskite failo pavadinimą (pvz. studentai10000.txt): ";
             cin >> f;
             auto s = high_resolution_clock::now();
             skaitytiIsFailo(f, grupe, metodas);
@@ -157,14 +157,14 @@ void vykdytiVector() {
     }
 
     if (grupe.empty()) {
-        cout << "Sarasas tuscias.\n";
+        cout << "Sąrašas tuščias.\n";
         return;
     }
 
     // rusiavimas
 
-    cout << "\nKaip rusiuoti duomenis?\n";
-    cout << "1 - Pagal Varda\n2 - Pagal pavarde\n3 - Pagal galutini pazymi\n";
+    cout << "\nKaip rūšiuoti duomenis?\n";
+    cout << "1 - Pagal Vardą\n2 - Pagal pavardę\n3 - Pagal galutinį pažymį\n";
     int rPasirinkimas = gautiSkaiciu("Pasirinkimas: ", 1, 3);
 
     auto startRusiuoti = high_resolution_clock::now();
@@ -184,9 +184,9 @@ void vykdytiVector() {
 
     auto endRusiuoti = high_resolution_clock::now();
     double rTrukme = duration<double>(endRusiuoti - startRusiuoti).count();
-    cout << "\nRusiavimas uztruko: " << fixed << setprecision(4) << rTrukme << " s\n";
+    cout << "\nRūšiavimas užtruko: " << fixed << setprecision(4) << rTrukme << " s\n";
 
-    cout << "Kur isvesti?\n1 - Ekranas\n2 - Failas.\nPasirinkimas: ";
+    cout << "Kur išvesti?\n1 - Ekranas\n2 - Failas.\nPasirinkimas: ";
     int kur = gautiSkaiciu("", 1, 2);
     string fVardas = "";
     if (kur == 2) { cout << "\nFailo pavadinimas(pvz.: rezultatai.txt): "; cin >> fVardas; }
