@@ -1,5 +1,3 @@
-#pragma once
-#include "struktura.h"
 string genVarda() {
     static std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
     string vardai[] = { "Jonas", "Petras", "Simas", "Povilas", "Mykolas", "Tomas", "Dovydas", "Matas", "Lukas", "Rokas",
