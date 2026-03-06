@@ -21,13 +21,13 @@
     <ClCompile Include="vektorius.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="funkcijos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="struktura.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="funkcijos.cpp">
-      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

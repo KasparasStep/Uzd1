@@ -1,16 +1,4 @@
 #include "struktura.h"
-int main() {
-    try {
-        vykdytiVector();
-    }
-    catch (const std::exception& e) {
-        cerr << "Programos veikimo klaida: " << e.what() << endl;
-        return 1;
-	}
-    return 0;
-        
-}
-/*
 string genVarda() {
     static std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
     string vardai[] = { "Jonas", "Petras", "Simas", "Povilas", "Mykolas", "Tomas", "Dovydas", "Matas", "Lukas", "Rokas",
@@ -54,4 +42,4 @@ int gautiSkaiciu(string info, int min, int max) {
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
-}*/
+}
