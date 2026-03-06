@@ -27,13 +27,20 @@ int gautiSkaiciu(string info, int min, int max) {
     int sk;
     while (true) {
         cout << info;
-        if (cin >> sk && sk >= min && sk <= max) {
-           return sk;
-        }
-        else {
-            cout << "Klaida: iveskite tinkama skaiciu (" << min << " - " << max << ").\n";
+        try {
+            if (cin >> sk && sk >= min && sk <= max) {
+                return sk;
+            }
+            else {
+                cout << "Klaida: iveskite tinkama skaiciu (" << min << " - " << max << ").\n";
+                cin.clear();
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                }
+            }   
+        catch (const std::exception& e) {
+            cout << "Klaida: " << e.what() << " Bandykite dar karta." << endl;
             cin.clear();
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
+		}
     }
 }
