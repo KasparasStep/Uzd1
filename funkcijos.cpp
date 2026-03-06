@@ -21,19 +21,32 @@ int gautiSkaiciu(string info, int min, int max) {
     while (true) {
         cout << info;
         try {
+            // 1. Bandome nuskaityti skaičių
             if (!(cin >> sk)) {
                 cin.clear();
-                cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-                throw std::invalid_argument("Ivestas ne skaicius!");
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                throw invalid_argument("Ivestas ne skaicius!");
             }
+
+            // 2. TIKRINIMAS: Ar po skaičiaus seka nepageidaujami simboliai (pvz. taškas ar kablelis)?
+            // cin.peek() pažiūri į kitą simbolį buferyje
+            if (cin.peek() != '\n' && cin.peek() != ' ' && cin.peek() != '\t' && cin.peek() != EOF) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                throw invalid_argument("Skaicius negali tureti kablelio ar papildomu simboliu!");
+            }
+
+            // 3. Diapazono tikrinimas
             if (sk < min || sk > max) {
-                throw std::out_of_range("Skaicius nepriklauso nurodytam intervalui!");
+                throw out_of_range("Tokio pasirinkimo nera!");
             }
-            // Sėkmės atveju išvalome buferį, kad neliktų \n simbolio
-            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+
+            // Viskas gerai - išvalome buferį iki galo ir grąžiname reikšmę
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             return sk;
+
         }
-        catch (const std::exception& e) {
+        catch (const exception& e) {
             cout << "Klaida: " << e.what() << " Bandykite dar karta.\n";
         }
     }

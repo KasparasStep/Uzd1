@@ -36,6 +36,11 @@ using std::chrono::milliseconds;
 using std::numeric_limits;
 using std::mt19937;
 using std::chrono::steady_clock;
+using std::invalid_argument;
+using std::out_of_range;
+using std::exception;
+using std::runtime_error;
+using std::streamsize;
 
 
 // paliktas tik vektorinis variantas
