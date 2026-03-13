@@ -15,7 +15,8 @@ string genPavarde(string vardas) {
     }
     return Mpavardes[mt() % 10];
 }
-// klaidu valymas
+
+// klaidu valymas skaiciu irasyme
 int gautiSkaiciu(string info, int min, int max) {
     int sk;
     while (true) {
