@@ -98,3 +98,22 @@ void splitStudentai(const vector<Studentas>& visi, vector<Studentas>& kieti,
             return galutinis(st) < 5.0;
 		});
 }
+
+void test1() {
+    vector<pair<string, int>> failai = {
+        {"studentai1000.txt", 1000},
+        {"studentai10000.txt", 10000},
+        {"studentai100000.txt", 100000},
+        {"studentai500000.txt", 1000000},
+        {"studentai1000000.txt", 10000000}
+	};
+
+    for (auto& [vardas, kiek] : failai) {
+        auto startGen = high_resolution_clock::now();
+        genFaila(vardas, kiek);
+        auto endGen = high_resolution_clock::now();
+
+        cout << vardas << " (" << kiek << "įrašų): "
+            << duration<double>(endGen - startGen).count() << " s\n";
+    }
+}
