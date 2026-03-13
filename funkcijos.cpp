@@ -81,3 +81,20 @@ void genFaila(const string& failas, int kiek) {
         out << setw(5) << (mt() % 10 + 1) << "\n";
     }
 }
+
+void splitStudentai(const vector<Studentas>& visi, vector<Studentas>& kieti,
+    vector <Studentas>& tiniginiai, int metodas) {
+    auto galutinis = [&](const Studentas& st) {
+        return (metodas == 2) ? st.gal_med : st.gal_vid;
+        };
+
+    //copy if kopijuoja tik tuos elementus, kurie atitinka salyga
+    copy_if(visi.begin(), visi.end(), back_inserter(kieti), [&](const Studentas& st)
+        {
+        return galutinis(st) >= 5.0;
+		});
+    copy_if(visi.begin(), visi.end(), back_inserter(tiniginiai), [&](const Studentas& st)
+        {
+            return galutinis(st) < 5.0;
+		});
+}
