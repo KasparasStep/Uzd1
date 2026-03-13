@@ -92,6 +92,7 @@ void vykdytiVector() {
         cout << "2 - Įrašyti vardus ranka, generuoti tik pažymius\n";
         cout << "3 - Generuoti viską (vardus/pavardes ir pažymius)\n";
         cout << "4 - Nuskaityti iš failo\n";
+		cout << "5 - Generuoti studentų failus (1 tūkst. / 10 tūkst. / 100 tūkst. / 1 M / 10 M)\n";
         cout << "0 - Baigti duomenų suvedimą ir rikiuoti\n";
         int pas = gautiSkaiciu("Pasirinkimas: ", 0, 4);
 
