@@ -94,7 +94,7 @@ void vykdytiVector() {
         cout << "4 - Nuskaityti iš failo\n";
 		cout << "5 - Generuoti studentų failus (1 tūkst. / 10 tūkst. / 100 tūkst. / 1 M / 10 M)\n";
         cout << "0 - Baigti duomenų suvedimą ir rikiuoti\n";
-        int pas = gautiSkaiciu("Pasirinkimas: ", 0, 4);
+        int pas = gautiSkaiciu("Pasirinkimas: ", 0, 5);
 
         if (pas == 0) break;
 
@@ -149,6 +149,26 @@ void vykdytiVector() {
             skaitytiIsFailo(f, grupe, metodas);
             auto e = high_resolution_clock::now();
             cout << "Nuskaityta per: " << duration<double>(e - s).count() << " s\n";
+        }
+
+        else if (pas == 5) {
+            cout << "\nKurį failą generuoti?\n";
+            cout << "1 - 1 000 įrašų\n";
+            cout << "2 - 10 000 įrašų\n";
+            cout << "3 - 100 000 įrašų\n";
+            cout << "4 - 1 000 000 įrašų\n";
+            cout << "5 - 10 000 000 įrašų\n";
+            cout << "6 - Visus iš karto\n";
+            int fPas = gautiSkaiciu("Pasirinkimas: ", 1, 6);
+
+            vector<pair<string, int>> failai = {
+                {"studentai1k.txt",  1000},
+                {"studentai10k.txt", 10000},
+                {"studentai100k.txt",100000},
+                {"studentai1M.txt",  1000000},
+                {"studentai10M.txt", 10000000}
+            };
+
         }
     }
 
