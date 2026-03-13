@@ -74,3 +74,4 @@ void splitStudentai(const vector<Studentas>& visi, vector<Studentas>& kieti,
 	vector <Studentas>& tiniginiai, int metodas);
 
 void test1();
+void test2(const string& failas, int metodas);
