@@ -61,7 +61,7 @@ void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas
 void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const string& failas) {
     ostream* out = &cout;
     ofstream fout;
-	auto startSpausd = high_resolution_clock::now();
+
     if (!failas.empty()) {
         fout.open(failas);
         if (fout) out = &fout;
@@ -78,8 +78,6 @@ void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const stri
         if (rodyti == 2 || rodyti == 3) (*out) << fixed << setprecision(2) << setw(20) << st.gal_med;
         (*out) << endl;
     }
-	auto endSpausd = high_resolution_clock::now();
-	cout << "\nSpausdinimas užtruko: " << fixed << setprecision(4) << duration<double>(endSpausd - startSpausd).count() << " s\n";
 }
 
 void vykdytiVector() {
