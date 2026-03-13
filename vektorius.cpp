@@ -251,16 +251,16 @@ void vykdytiVector() {
         splitStudents(grupe, kieti, tinginiai, metodas);
         auto t2 = high_resolution_clock::now();
 
-        cout << "\nKietiakiai (>= 5.0): " << kieti.size() << " studentų\n";
-        cout << "tinginiai  (< 5.0): " << tinginiai.size() << " studentų\n";
+        cout << "\nKieti (>= 5.0): " << kieti.size() << " studentų\n";
+        cout << "Tinginiai  (< 5.0): " << tinginiai.size() << " studentų\n";
         cout << "Skirstymas užtruko:  " << fixed << setprecision(4)
             << duration<double>(t2 - t1).count() << " s\n";
 
         // Failų pavadinimai
         string kietuFailas, tinginiuFailas;
-        cout << "\nKietiakių failo pavadinimas (pvz. kieti.txt): ";
+        cout << "\nKietų failo pavadinimas (pvz. kieti.txt): ";
         cin >> kietuFailas;
-        cout << "Vargsiukų failo pavadinimas (pvz. tinginiai.txt): ";
+        cout << "Tinginių failo pavadinimas (pvz. tinginiai.txt): ";
         cin >> tinginiuFailas;
 
         auto t3 = high_resolution_clock::now();
