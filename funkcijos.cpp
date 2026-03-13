@@ -1,13 +1,14 @@
 #include "struktura.h"
+
+static std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
+
 string genVarda() {
-    static std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
     string vardai[] = { "Jonas", "Petras", "Simas", "Povilas", "Mykolas", "Tomas", "Dovydas", "Matas", "Lukas", "Rokas",
                         "Evelina", "Gabija", "Ieva", "Greta", "Sandra", "Eglė", "Viktorija", "Kamilė", "Viltė", "Vėjūnė" };
     return vardai[mt() % 20];
 }
 
 string genPavarde(string vardas) {
-    static std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
     string Vpavardes[] = { "Kazlauskas", "Jankauskas", "Petrauskas", "Stankevičius", "Vasiliauskas", "Butkus", "Žukauskas", "Paulauskas", "Urbonas", "Kavaliauskas" };
     string Mpavardes[] = { "Kazlauskaitė", "Jankauskaitė", "Petrauskaitė", "Stankevičiūtė", "Vasiliauskaitė", "Butkutė", "Žukauskaitė", "Paulauskaitė", "Urbonaitė", "Kavaliauskaite" };
     if (!vardas.empty() && vardas.back() == 's') {
@@ -54,7 +55,8 @@ int gautiSkaiciu(string info, int min, int max) {
 }
 
 void genFaila(const string& failas, int kiek) {
-	ofstream out(failas);
+    string failoVardas = "studentai" + to_string(kiek) + ".txt";
+    ofstream out(failas);
     //prideti throw error
     
     out << left << setw(15) << "Vardas" << setw(15) << "Pavardė";
@@ -65,6 +67,8 @@ void genFaila(const string& failas, int kiek) {
         // Šabloniniai vardai
         out << left << setw(15) << ("Vardas" + to_string(i))
             << setw(15) << ("Pavarde" + to_string(i));
-      
+        for (int j = 0; j < 20; j++)
+            out << setw(5) << (mt() % 10 + 1);
+        out << setw(5) << (mt() % 10 + 1) << "\n";
     }
 }
