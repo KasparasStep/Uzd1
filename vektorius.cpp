@@ -4,11 +4,6 @@
 // Atsitiktinių skaičių generatorius
 static std::mt19937 mt(steady_clock::now().time_since_epoch().count());
 
-//void genPazymius(vector<int>& paz, int& egz) {
-//    paz.clear();
-//    for (int i = 0; i < 20; i++) paz.push_back(mt() % 10 + 1);
-//    egz = mt() % 10 + 1;
-//}
 
 double skaiciuotiVidurki(const vector<int>& paz) {
     if (paz.empty()) return 0.0;
