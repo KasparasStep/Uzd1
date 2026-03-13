@@ -41,6 +41,7 @@ using std::out_of_range;
 using std::exception;
 using std::runtime_error;
 using std::streamsize;
+using std::to_string;
 
 
 // paliktas tik vektorinis variantas
@@ -65,3 +66,5 @@ void apskaiciuotiPagalMetoda(Studentas& st, int metodas);
 void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas);
 void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const string& failas);
 void vykdytiVector();
+
+void genFaila(const string& failas, int kiek);

@@ -52,3 +52,19 @@ int gautiSkaiciu(string info, int min, int max) {
         }
     }
 }
+
+void genFaila(const string& failas, int kiek) {
+	ofstream out(failas);
+    //prideti throw error
+    
+    out << left << setw(15) << "Vardas" << setw(15) << "Pavardė";
+    for (int i = 1; i <= 20; i++) out << setw(5) << ("ND" + to_string(i));
+    out << setw(5) << "Egz." << "\n";
+
+    for (int i = 1; i <= kiek; i++) {
+        // Šabloniniai vardai
+        out << left << setw(15) << ("Vardas" + to_string(i))
+            << setw(15) << ("Pavarde" + to_string(i));
+      
+    }
+}
