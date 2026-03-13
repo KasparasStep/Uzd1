@@ -28,7 +28,7 @@ void test2(const string& failas, int metodas) {
     auto t2 = high_resolution_clock::now();
 
     //skirstymas
-    splitStudentai(visi, kieti, tinginiai, metodas);
+    splitStudents(visi, kieti, tinginiai, metodas);
     auto t3 = high_resolution_clock::now();
 
     //spausdinimas i 2 failus

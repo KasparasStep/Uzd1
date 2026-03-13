@@ -85,7 +85,7 @@ void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const stri
 void vykdytiVector() {
     vector<Studentas> grupe;
     int metodas = gautiSkaiciu("Skaičiavimo metodas:\n1 - Vidurkis\n2 - Mediana\n3 - Abu.\nPasirinkimas: ", 1, 3);
-
+    //meniu
     while (true) {
         cout << "\n--- MENIU ---\n";
         cout << "1 - Įrašyti viską ranka\n";
@@ -160,10 +160,10 @@ void vykdytiVector() {
 		// 5 variantas: Generuoti failus
         else if (pas == 5) {
             cout << "\nKurį failą generuoti?\n";
-            cout << "1 - 1 000 įrašų\n";
-            cout << "2 - 10 000 įrašų\n";
-            cout << "3 - 100 000 įrašų\n";
-            cout << "4 - 1 000 000 įrašų\n";
+            cout << "1 -      1 000 įrašų\n";
+            cout << "2 -     10 000 įrašų\n";
+            cout << "3 -    100 000 įrašų\n";
+            cout << "4 -  1 000 000 įrašų\n";
             cout << "5 - 10 000 000 įrašų\n";
             cout << "6 - Visus iš karto\n";
             int fPas = gautiSkaiciu("Pasirinkimas: ", 1, 6);
@@ -238,9 +238,46 @@ void vykdytiVector() {
     if (kur == 2) { cout << "\nFailo pavadinimas(pvz.: rezultatai.txt): "; cin >> fVardas; }
 
     spausdintiRezultatus(grupe, metodas, fVardas);
+
+    //skirtsymas į dvi dalis
+    cout << "\nAr skirstyti studentus į dvi grupes (kieti / tinginiai)?\n";
+    cout << "1 - Taip\n2 - Ne\n";
+    int skPas = gautiSkaiciu("Pasirinkimas: ", 1, 2);
+
+    if (skPas == 1) {
+        vector<Studentas> kieti, tinginiai;
+
+        auto t1 = high_resolution_clock::now();
+        splitStudents(grupe, kieti, tinginiai, metodas);
+        auto t2 = high_resolution_clock::now();
+
+        cout << "\nKietiakiai (>= 5.0): " << kieti.size() << " studentų\n";
+        cout << "tinginiai  (< 5.0): " << tinginiai.size() << " studentų\n";
+        cout << "Skirstymas užtruko:  " << fixed << setprecision(4)
+            << duration<double>(t2 - t1).count() << " s\n";
+
+        // Failų pavadinimai
+        string kietuFailas, tinginiuFailas;
+        cout << "\nKietiakių failo pavadinimas (pvz. kieti.txt): ";
+        cin >> kietuFailas;
+        cout << "Vargsiukų failo pavadinimas (pvz. tinginiai.txt): ";
+        cin >> tinginiuFailas;
+
+        auto t3 = high_resolution_clock::now();
+        spausdintiRezultatus(kieti, metodas, kietuFailas);
+        spausdintiRezultatus(tinginiai, metodas, tinginiuFailas);
+        auto t4 = high_resolution_clock::now();
+
+        cout << "Išvedimas užtruko: " << fixed << setprecision(4)
+            << duration<double>(t4 - t3).count() << " s\n";
+
+        cout << "\nFailai sukurti:\n";
+        cout << "  " << kietuFailas << " (" << kieti.size() << " įrašų)\n";
+        cout << "  " << tinginiuFailas << " (" << tinginiai.size() << " įrašų)\n";
+    }
 }
 
-void splitStudentai(const vector<Studentas>& visi, vector<Studentas>& kieti,
+void splitStudents(const vector<Studentas>& visi, vector<Studentas>& kieti,
     vector <Studentas>& tiniginiai, int metodas) {
     auto galutinis = [&](const Studentas& st) {
         return (metodas == 2) ? st.gal_med : st.gal_vid;

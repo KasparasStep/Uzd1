@@ -70,7 +70,7 @@ void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const stri
 void vykdytiVector();
 
 void genFaila(const string& failas, int kiek);
-void splitStudentai(const vector<Studentas>& visi, vector<Studentas>& kieti,
+void splitStudents(const vector<Studentas>& visi, vector<Studentas>& kieti,
 	vector <Studentas>& tiniginiai, int metodas);
 
 void test1();
