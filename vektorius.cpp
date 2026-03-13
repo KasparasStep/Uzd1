@@ -85,6 +85,18 @@ void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const stri
 void vykdytiVector() {
     vector<Studentas> grupe;
     int metodas = gautiSkaiciu("Skaičiavimo metodas:\n1 - Vidurkis\n2 - Mediana\n3 - Abu.\nPasirinkimas: ", 1, 3);
+    // testavimo meniu
+    cout << "\nAr norite paleisti greičio tyrimus?\n";
+    cout << "1 - Tyrimas 1 (failų kūrimas)\n";
+    cout << "2 - Tyrimas 2 (duomenų apdorojimas)\n";
+    cout << "3 - Abu tyrimai\n";
+    cout << "0 - Praleisti\n";
+    int tPas = gautiSkaiciu("Pasirinkimas: ", 0, 3);
+
+    if (tPas == 1 || tPas == 3) test1();
+    //if (tPas == 2 || tPas == 3) 
+
+    
     //meniu
     while (true) {
         cout << "\n--- MENIU ---\n";
