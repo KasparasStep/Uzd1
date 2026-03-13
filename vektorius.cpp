@@ -96,8 +96,10 @@ void vykdytiVector() {
         cout << "0 - Baigti duomenų suvedimą ir rikiuoti\n";
         int pas = gautiSkaiciu("Pasirinkimas: ", 0, 5);
 
+		// 0 variantas: baigti įvedimą
         if (pas == 0) break;
 
+		// 1 ir 2 variantai: rankinis įvedimas
         if (pas == 1 || pas == 2) {
             Studentas st;
             cout << "Įveskite vardą: "; cin >> st.vardas;
@@ -126,8 +128,10 @@ void vykdytiVector() {
             grupe.push_back(move(st));
 
         }
+
+        // 3 variantas: Generuoti viska
         else if (pas == 3) {
-            // 3 variantas: Generuoti viska
+            
             int kiek = gautiSkaiciu("Kiek studentų generuoti? ", 1, 1000000);
             for (int i = 0; i < kiek; i++) {
                 Studentas st;
@@ -140,6 +144,8 @@ void vykdytiVector() {
             cout << "Sugeneruota.\n";
 
         }
+
+		// 4 variantas: Iš failo
         else if (pas == 4) {
             // 4 variantas: Iš failo
             string f;
@@ -151,6 +157,7 @@ void vykdytiVector() {
             cout << "Nuskaityta per: " << duration<double>(e - s).count() << " s\n";
         }
 
+		// 5 variantas: Generuoti failus
         else if (pas == 5) {
             cout << "\nKurį failą generuoti?\n";
             cout << "1 - 1 000 įrašų\n";
@@ -168,7 +175,30 @@ void vykdytiVector() {
                 {"studentai1M.txt",  1000000},
                 {"studentai10M.txt", 10000000}
             };
-
+            // jei tik vieną failą
+            if (fPas >= 1 && fPas <= 5) {
+                auto& [vardas, kiek] = failai[fPas - 1];
+                cout << "Generuojama: " << vardas << "...\n";
+                auto t1 = high_resolution_clock::now();
+                genFaila(vardas, kiek);
+                auto t2 = high_resolution_clock::now();
+                cout << "Sugeneruota per: "
+                    << fixed << setprecision(4)
+                    << duration<double>(t2 - t1).count() << " s\n";
+            }
+            // jei visi iš karto
+            else {
+                for (auto& [vardas, kiek] : failai) {
+                    cout << "Generuojama: " << vardas << " (" << kiek << " įrašų)...\n";
+                    auto t1 = high_resolution_clock::now();
+                    genFaila(vardas, kiek);
+                    auto t2 = high_resolution_clock::now();
+                    cout << "Sugeneruota per: "
+                        << fixed << setprecision(4)
+                        << duration<double>(t2 - t1).count() << " s\n";
+                }
+                cout << "\nVisi failai sugeneruoti.\n";
+            }
         }
     }
 
