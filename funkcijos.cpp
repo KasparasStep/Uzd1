@@ -87,21 +87,3 @@ void genPazymius(vector<int>& paz, int& egz) {
     for (int i = 0; i < 20; i++) paz.push_back(mt() % 10 + 1);
     egz = mt() % 10 + 1;
 }
-
-
-void splitStudentai(const vector<Studentas>& visi, vector<Studentas>& kieti,
-    vector <Studentas>& tiniginiai, int metodas) {
-    auto galutinis = [&](const Studentas& st) {
-        return (metodas == 2) ? st.gal_med : st.gal_vid;
-        };
-
-    //copy if kopijuoja tik tuos elementus, kurie atitinka salyga
-    copy_if(visi.begin(), visi.end(), back_inserter(kieti), [&](const Studentas& st)
-        {
-        return galutinis(st) >= 5.0;
-		});
-    copy_if(visi.begin(), visi.end(), back_inserter(tiniginiai), [&](const Studentas& st)
-        {
-            return galutinis(st) < 5.0;
-		});
-}
