@@ -14,7 +14,7 @@ void test1() {
         genFaila(vardas, kiek);
         auto endGen = high_resolution_clock::now();
 
-        cout << vardas << " (" << kiek << "įrašų): "
+        cout << vardas << " (" << kiek << " įrašų): "
             << duration<double>(endGen - startGen).count() << " s\n";
     }
 }
