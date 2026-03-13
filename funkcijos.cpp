@@ -54,6 +54,15 @@ int gautiSkaiciu(string info, int min, int max) {
     }
 }
 
+/*
+genFaila veikia greiciau, nei rezultatu spausdinimo funkcija,
+nes nereikia formatuoti duomenų ir skaičiuoti galutinių pažymių.
+Taip pat, generuojant failą, tiesiog rašome skaičius be papildomų formatavimo operacijų, o
+spausdinant rezultatus, kiekvienam studentui reikia apskaičiuoti galutinį pažymį ir
+formatuoti išvestį, kas užtrunka daugiau laiko.
+Be to, spausdinant didelį kiekį duomenų į konsolę, gali būti lėtesnis procesas nei
+rašant į failą.
+*/
 void genFaila(const string& failas, int kiek) {
     string failoVardas = "studentai" + to_string(kiek) + ".txt";
     ofstream out(failas);
