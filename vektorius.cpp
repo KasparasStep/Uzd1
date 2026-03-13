@@ -223,7 +223,6 @@ void vykdytiVector() {
     cout << "1 - Pagal Vardą\n2 - Pagal pavardę\n3 - Pagal galutinį pažymį\n";
     int rPasirinkimas = gautiSkaiciu("Pasirinkimas: ", 1, 3);
 
-    auto startRusiuoti = high_resolution_clock::now();
 
     sort(grupe.begin(), grupe.end(), [rPasirinkimas, metodas](const Studentas& a, const Studentas& b) {
         switch (rPasirinkimas) {
@@ -237,10 +236,6 @@ void vykdytiVector() {
             default: return a.pavarde < b.pavarde;
         }
         });
-
-    auto endRusiuoti = high_resolution_clock::now();
-    double rTrukme = duration<double>(endRusiuoti - startRusiuoti).count();
-    cout << "\nRūšiavimas užtruko: " << fixed << setprecision(4) << rTrukme << " s\n";
 
     cout << "Kur išvesti?\n1 - Ekranas\n2 - Failas.\nPasirinkimas: ";
     int kur = gautiSkaiciu("", 1, 2);
@@ -257,14 +252,10 @@ void vykdytiVector() {
     if (skPas == 1) {
         vector<Studentas> kieti, tinginiai;
 
-        auto t1 = high_resolution_clock::now();
         splitStudents(grupe, kieti, tinginiai, metodas);
-        auto t2 = high_resolution_clock::now();
 
         cout << "\nKieti (>= 5.0): " << kieti.size() << " studentų\n";
         cout << "Tinginiai  (< 5.0): " << tinginiai.size() << " studentų\n";
-        cout << "Skirstymas užtruko:  " << fixed << setprecision(4)
-            << duration<double>(t2 - t1).count() << " s\n";
 
         // Failų pavadinimai
         string kietuFailas, tinginiuFailas;
@@ -273,13 +264,8 @@ void vykdytiVector() {
         cout << "Tinginių failo pavadinimas (pvz. tinginiai.txt): ";
         cin >> tinginiuFailas;
 
-        auto t3 = high_resolution_clock::now();
         spausdintiRezultatus(kieti, metodas, kietuFailas);
         spausdintiRezultatus(tinginiai, metodas, tinginiuFailas);
-        auto t4 = high_resolution_clock::now();
-
-        cout << "Išvedimas užtruko: " << fixed << setprecision(4)
-            << duration<double>(t4 - t3).count() << " s\n";
 
         cout << "\nFailai sukurti:\n";
         cout << "  " << kietuFailas << " (" << kieti.size() << " įrašų)\n";
