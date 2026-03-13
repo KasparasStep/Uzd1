@@ -72,3 +72,5 @@ void vykdytiVector();
 void genFaila(const string& failas, int kiek);
 void splitStudentai(const vector<Studentas>& visi, vector<Studentas>& kieti,
 	vector <Studentas>& tiniginiai, int metodas);
+
+void test1();
