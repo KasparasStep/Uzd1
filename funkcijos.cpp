@@ -82,6 +82,13 @@ void genFaila(const string& failas, int kiek) {
     }
 }
 
+void genPazymius(vector<int>& paz, int& egz) {
+    paz.clear();
+    for (int i = 0; i < 20; i++) paz.push_back(mt() % 10 + 1);
+    egz = mt() % 10 + 1;
+}
+
+
 void splitStudentai(const vector<Studentas>& visi, vector<Studentas>& kieti,
     vector <Studentas>& tiniginiai, int metodas) {
     auto galutinis = [&](const Studentas& st) {
