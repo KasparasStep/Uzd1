@@ -43,6 +43,7 @@ using std::runtime_error;
 using std::streamsize;
 using std::to_string;
 using std::mt19937;
+using std::pair;
 
 
 // paliktas tik vektorinis variantas
