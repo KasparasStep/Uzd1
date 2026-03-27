@@ -130,9 +130,6 @@
   <ItemGroup>
     <ClCompile Include="funkcijos.cpp" />
     <ClCompile Include="testavimas.cpp" />
-    <ClCompile Include="type_deque.cpp" />
-    <ClCompile Include="type_list.cpp" />
-    <ClCompile Include="type_vector.cpp" />
     <ClCompile Include="Uzd1.cpp" />
     <ClCompile Include="vektorius.cpp" />
   </ItemGroup>
