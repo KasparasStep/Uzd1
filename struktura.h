@@ -81,7 +81,7 @@ void splitStudents(const vector<Studentas>& visi, vector<Studentas>& kieti,
 void test1();
 void test2(const string& failas, int metodas);
 
-void skaitytiVector(string failas, vector<Studentas>& grupe, int metodas);
+/*void skaitytiVector(string failas, vector<Studentas>& grupe, int metodas);
 void skaitytiList(string failas, list<Studentas>& grupe, int metodas);
 void skaitytiDeque(string failas, deque<Studentas>& grupe, int metodas);
 
@@ -108,4 +108,4 @@ void skaitytiDuomenis(string failas, Container& grupe, int metodas) {
             grupe.push_back(st);
         }
     }
-}
+}*/

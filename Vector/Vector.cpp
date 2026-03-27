@@ -1,7 +1,7 @@
 #include "struktura.h"
 
 int main() {
-    string failas = "studentai10000.txt"; // Testuojamas failas
+    string failas = "studentai10k.txt"; // Testuojamas failas
     vector<Studentas> visi, kieti, tinginiai;
 
     cout << "Testuojamas VECTOR su " << failas << endl;
