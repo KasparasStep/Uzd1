@@ -144,3 +144,9 @@ void skirstytiVector(const vector<Studentas>& visi, vector<Studentas>& kieti, ve
         else kieti.push_back(s);
     }
 }
+void skirstytiList(const list<Studentas>& visi, list<Studentas>& kieti, list<Studentas>& vargsiukai) {
+    for (const auto& s : visi) {
+        if (s.gal_vid < 5.0) vargsiukai.push_back(s);
+        else kieti.push_back(s);
+    }
+}
