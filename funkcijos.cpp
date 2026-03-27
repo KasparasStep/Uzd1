@@ -136,3 +136,11 @@ void skaitytiDeque(string failas, deque<Studentas>& grupe, int metodas) {
         grupe.push_back(st);
     }
 }
+
+// 1 Strategijos skirstymas
+void skirstytiVector(const vector<Studentas>& visi, vector<Studentas>& kieti, vector<Studentas>& vargsiukai) {
+    for (const auto& s : visi) {
+        if (s.gal_vid < 5.0) vargsiukai.push_back(s);
+        else kieti.push_back(s);
+    }
+}
