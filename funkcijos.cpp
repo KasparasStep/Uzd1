@@ -87,3 +87,20 @@ void genPazymius(vector<int>& paz, int& egz) {
     for (int i = 0; i < 20; i++) paz.push_back(mt() % 10 + 1);
     egz = mt() % 10 + 1;
 }
+
+void skaitytiVector(string failas, vector<Studentas>& grupe, int metodas) {
+    ifstream in(failas);
+    string line;
+    getline(in, line); // Praleisti antrastę
+    while (getline(in, line)) {
+        stringstream ss(line);
+        Studentas st;
+        ss >> st.vardas >> st.pavarde;
+        int p;
+        while (ss >> p) st.paz.push_back(p);
+        st.egz = st.paz.back();
+        st.paz.pop_back();
+        apskaiciuotiPagalMetoda(st, metodas);
+        grupe.push_back(st);
+    }
+}
