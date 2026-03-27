@@ -27,6 +27,9 @@
     <ClCompile Include="testavimas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="type_vector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="struktura.h">
