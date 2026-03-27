@@ -138,21 +138,21 @@ void skaitytiDeque(string failas, deque<Studentas>& grupe, int metodas) {
 }
 
 // 1 Strategijos skirstymas
-void skirstytiVector(const vector<Studentas>& visi, vector<Studentas>& kieti, vector<Studentas>& vargsiukai) {
+void skirstytiVector(const vector<Studentas>& visi, vector<Studentas>& kieti, vector<Studentas>& tinginiai) {
     for (const auto& s : visi) {
-        if (s.gal_vid < 5.0) vargsiukai.push_back(s);
+        if (s.gal_vid < 5.0) tinginiai.push_back(s);
         else kieti.push_back(s);
     }
 }
-void skirstytiList(const list<Studentas>& visi, list<Studentas>& kieti, list<Studentas>& vargsiukai) {
+void skirstytiList(const list<Studentas>& visi, list<Studentas>& kieti, list<Studentas>& tinginiai) {
     for (const auto& s : visi) {
-        if (s.gal_vid < 5.0) vargsiukai.push_back(s);
+        if (s.gal_vid < 5.0) tinginiai.push_back(s);
         else kieti.push_back(s);
     }
 }
-void skirstytiDeque(const deque<Studentas>& visi, deque<Studentas>& kieti, deque<Studentas>& vargsiukai) {
+void skirstytiDeque(const deque<Studentas>& visi, deque<Studentas>& kieti, deque<Studentas>& tinginiai) {
     for (const auto& s : visi) {
-        if (s.gal_vid < 5.0) vargsiukai.push_back(s);
+        if (s.gal_vid < 5.0) tinginiai.push_back(s);
         else kieti.push_back(s);
     }
 }
