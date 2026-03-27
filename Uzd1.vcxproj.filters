@@ -33,6 +33,9 @@
     <ClCompile Include="type_list.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="type_deque.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="struktura.h">
