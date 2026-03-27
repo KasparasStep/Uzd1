@@ -2,7 +2,7 @@
 
 int main() {
     string failas = "studentai10000.txt"; // Testuojamas failas
-    vector<Studentas> visi, kieti, vargsiukai;
+    vector<Studentas> visi, kieti, tinginiai;
 
     cout << "Testuojamas VECTOR su " << failas << endl;
 
@@ -17,7 +17,7 @@ int main() {
     auto t4 = high_resolution_clock::now();
 
     auto t5 = high_resolution_clock::now();
-    skirstytiVector(visi, kieti, vargsiukai);
+    skirstytiVector(visi, kieti, tinginiai);
     auto t6 = high_resolution_clock::now();
 
     cout << "Skaitymas: " << duration<double>(t2 - t1).count() << "s" << endl;
