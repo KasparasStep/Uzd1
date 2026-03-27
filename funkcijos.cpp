@@ -104,3 +104,19 @@ void skaitytiVector(string failas, vector<Studentas>& grupe, int metodas) {
         grupe.push_back(st);
     }
 }
+void skaitytiList(string failas, list<Studentas>& grupe, int metodas) {
+    ifstream in(failas);
+    string line;
+    getline(in, line);
+    while (getline(in, line)) {
+        stringstream ss(line);
+        Studentas st;
+        ss >> st.vardas >> st.pavarde;
+        int p;
+        while (ss >> p) st.paz.push_back(p);
+        st.egz = st.paz.back();
+        st.paz.pop_back();
+        apskaiciuotiPagalMetoda(st, metodas);
+        grupe.push_back(st);
+    }
+}
