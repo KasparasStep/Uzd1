@@ -2,7 +2,7 @@
 
 int main() {
     string failas = "studentai10000.txt";
-    list<Studentas> visi, kieti, vargsiukai;
+    list<Studentas> visi, kieti, tinginiai;
 
     auto t1 = high_resolution_clock::now();
     skaitytiDuomenis(failas, visi, 1);
@@ -15,7 +15,7 @@ int main() {
     auto t3 = high_resolution_clock::now();
 
     for (const auto& s : visi) {
-        if (s.gal_vid < 5.0) vargsiukai.push_back(s);
+        if (s.gal_vid < 5.0) tinginiai.push_back(s);
         else kieti.push_back(s);
     }
     auto t4 = high_resolution_clock::now();
