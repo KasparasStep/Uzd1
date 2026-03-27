@@ -150,3 +150,9 @@ void skirstytiList(const list<Studentas>& visi, list<Studentas>& kieti, list<Stu
         else kieti.push_back(s);
     }
 }
+void skirstytiDeque(const deque<Studentas>& visi, deque<Studentas>& kieti, deque<Studentas>& vargsiukai) {
+    for (const auto& s : visi) {
+        if (s.gal_vid < 5.0) vargsiukai.push_back(s);
+        else kieti.push_back(s);
+    }
+}
