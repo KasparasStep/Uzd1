@@ -10,6 +10,8 @@
 #include <limits>
 #include <fstream>
 #include <sstream>
+#include <list>
+#include <deque>
 
 
 using std::cin;
