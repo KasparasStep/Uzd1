@@ -14,6 +14,8 @@
 #include <deque>
 #include <iterator>
 
+
+//using outline
 using std::cin;
 using std::cout;
 using std::string;
@@ -59,6 +61,8 @@ struct Studentas {
 };
 
 // Funkcijų prototipai
+template <typename Container>
+
 int gautiSkaiciu(string info, int min, int max);
 string genVarda();
 string genPavarde(string vardas);
