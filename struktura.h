@@ -117,3 +117,21 @@ void split_Strategy1(const Container& visi, Container& kieti, Container& tingini
     std::copy_if(visi.begin(), visi.end(), std::back_inserter(kieti), [&](const Studentas& st) { return galutinis(st) >= 5.0; });
     std::copy_if(visi.begin(), visi.end(), std::back_inserter(tinginiai), [&](const Studentas& st) { return galutinis(st) < 5.0; });
 }
+
+// STRATEGIJA 3 (std::vector ir std::deque)
+// Naudoja partition ir erase
+
+template <typename Container>
+void split_Strategy3_VD(Container& visi, Container& tinginiai, int metodas) {
+    auto galutinis = [&](const Studentas& st) { return (metodas == 2) ? st.gal_med : st.gal_vid; };
+
+    // stable_partition sustumia visus kietus į priekį, o tinginius į galą.
+    // 'it' yra riba, nuo kurios prasideda tinginiai.
+    auto it = std::stable_partition(visi.begin(), visi.end(), [&](const Studentas& st) { return galutinis(st) >= 5.0; });
+
+    // Perkeliam tinginius į naują konteinerį greituoju (move) būdu
+    tinginiai.insert(tinginiai.end(), std::make_move_iterator(it), std::make_move_iterator(visi.end()));
+
+    // Ištriname tinginius iš originalaus konteinerio (jame lieka tik kieti)
+    visi.erase(it, visi.end());
+}
