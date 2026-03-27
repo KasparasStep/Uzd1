@@ -82,7 +82,7 @@ void skaitytiIsFailo_T(const string& failas, Container& grupe, int metodas) {
             st.egz = st.paz.back();
             st.paz.pop_back();
             apskaiciuotiPagalMetoda(st, metodas);
-            grupe.push_back(std::move(st)); // push_back tinka visiems trims tipams!
+            grupe.push_back(std::move(st)); // push_back tinka visiems trims tipams
         }
     }
 }
@@ -106,3 +106,14 @@ void genFaila(const string& failas, int kiek);
 
 void test1();
 void test2(const string& failas, int metodas);
+
+
+// STRATEGIJA 1
+
+template <typename Container>
+void split_Strategy1(const Container& visi, Container& kieti, Container& tinginiai, int metodas) {
+    auto galutinis = [&](const Studentas& st) { return (metodas == 2) ? st.gal_med : st.gal_vid; };
+
+    std::copy_if(visi.begin(), visi.end(), std::back_inserter(kieti), [&](const Studentas& st) { return galutinis(st) >= 5.0; });
+    std::copy_if(visi.begin(), visi.end(), std::back_inserter(tinginiai), [&](const Studentas& st) { return galutinis(st) < 5.0; });
+}
