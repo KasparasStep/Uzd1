@@ -96,13 +96,13 @@ double skaiciuotiVidurki(const vector<int>& paz);
 double skaiciuotiMediana(vector<int> paz);
 void apskaiciuotiPagalMetoda(Studentas& st, int metodas);
 
-void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas);
+//void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas);
 void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const string& failas);
 void vykdytiVector();
 
 void genFaila(const string& failas, int kiek);
-void splitStudents(const vector<Studentas>& visi, vector<Studentas>& kieti,
-	vector <Studentas>& tiniginiai, int metodas);
+//void splitStudents(const vector<Studentas>& visi, vector<Studentas>& kieti,
+//	vector <Studentas>& tiniginiai, int metodas);
 
 void test1();
 void test2(const string& failas, int metodas);
