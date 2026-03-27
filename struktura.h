@@ -62,6 +62,30 @@ struct Studentas {
 
 // Funkcijų prototipai
 template <typename Container>
+void skaitytiIsFailo_T(const string& failas, Container& grupe, int metodas) {
+    ifstream in(failas);
+    if (!in) { cout << "Failas nerastas: " << failas << "\n"; return; }
+
+    string line;
+    getline(in, line); // Praleidžiame antraštę
+
+    while (getline(in, line)) {
+        if (line.empty()) continue;
+        stringstream ss(line);
+        Studentas st;
+        if (!(ss >> st.vardas >> st.pavarde)) continue;
+
+        int p;
+        while (ss >> p) st.paz.push_back(p);
+
+        if (!st.paz.empty()) {
+            st.egz = st.paz.back();
+            st.paz.pop_back();
+            apskaiciuotiPagalMetoda(st, metodas);
+            grupe.push_back(std::move(st)); // push_back tinka visiems trims tipams!
+        }
+    }
+}
 
 int gautiSkaiciu(string info, int min, int max);
 string genVarda();
