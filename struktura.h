@@ -84,3 +84,7 @@ void test2(const string& failas, int metodas);
 void skaitytiVector(string failas, vector<Studentas>& grupe, int metodas);
 void skaitytiList(string failas, list<Studentas>& grupe, int metodas);
 void skaitytiDeque(string failas, deque<Studentas>& grupe, int metodas);
+
+void skirstytiVector(const vector<Studentas>& visi, vector<Studentas>& kieti, vector<Studentas>& tinginiai);
+void skirstytiList(const list<Studentas>& visi, list<Studentas>& kieti, list<Studentas>& tinginiai);
+void skirstytiDeque(const deque<Studentas>& visi, deque<Studentas>& kieti, deque<Studentas>& tinginiai);
