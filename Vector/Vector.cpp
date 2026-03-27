@@ -1,28 +1,20 @@
+// Vector.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
 
-#include "struktura.h"
-int main() {
-    string failas = "studentai10000.txt"; // Testuojamas failas
-    vector<Studentas> visi, kieti, vargsiukai;
+#include <iostream>
 
-    cout << "Testuojamas VECTOR su " << failas << endl;
-
-    auto t1 = high_resolution_clock::now();
-    skaitytiVector(failas, visi, 1);
-    auto t2 = high_resolution_clock::now();
-
-    auto t3 = high_resolution_clock::now();
-    sort(visi.begin(), visi.end(), [](const Studentas& a, const Studentas& b) {
-        return a.gal_vid < b.gal_vid;
-        });
-    auto t4 = high_resolution_clock::now();
-
-    auto t5 = high_resolution_clock::now();
-    skirstytiVector(visi, kieti, vargsiukai);
-    auto t6 = high_resolution_clock::now();
-
-    cout << "Skaitymas: " << duration<double>(t2 - t1).count() << "s" << endl;
-    cout << "Rusiavimas: " << duration<double>(t4 - t3).count() << "s" << endl;
-    cout << "Skirstymas (S1): " << duration<double>(t6 - t5).count() << "s" << endl;
-
-    return 0;
+int main()
+{
+    std::cout << "Hello World!\n";
 }
+
+// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
+// Debug program: F5 or Debug > Start Debugging menu
+
+// Tips for Getting Started: 
+//   1. Use the Solution Explorer window to add/manage files
+//   2. Use the Team Explorer window to connect to source control
+//   3. Use the Output window to see build output and other messages
+//   4. Use the Error List window to view errors
+//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
+//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a60634d5-d619-4736-b9c2-adaa322b4f76}</ProjectGuid>
+    <ProjectGuid>{2ab459b6-1fb9-4781-a484-6cd05b347ead}</ProjectGuid>
     <RootNamespace>Deque</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -127,12 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Uzd1\funkcijos.cpp" />
-    <ClCompile Include="..\Uzd1\testavimas.cpp" />
     <ClCompile Include="Deque.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\Uzd1\struktura.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
