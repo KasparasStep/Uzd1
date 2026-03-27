@@ -10,6 +10,9 @@
 #include <limits>
 #include <fstream>
 #include <sstream>
+#include <list>
+#include <deque>
+#include <iterator>
 
 using std::cin;
 using std::cout;
