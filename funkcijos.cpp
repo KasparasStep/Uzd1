@@ -16,6 +16,63 @@ string genPavarde(string vardas) {
     }
     return Mpavardes[mt() % 10];
 }
+/*
+genFaila veikia greiciau, nei rezultatu spausdinimo funkcija,
+nes nereikia formatuoti duomenų ir skaičiuoti galutinių pažymių.
+Taip pat, generuojant failą, tiesiog rašome skaičius be papildomų formatavimo operacijų, o
+spausdinant rezultatus, kiekvienam studentui reikia apskaičiuoti galutinį pažymį ir
+formatuoti išvestį, kas užtrunka daugiau laiko.
+Be to, spausdinant didelį kiekį duomenų į konsolę, gali būti lėtesnis procesas nei
+rašant į failą.
+*/
+void genFaila(const string& failas, int kiek) {
+    string failoVardas = "studentai" + to_string(kiek) + ".txt";
+    ofstream out(failas);
+    //prideti throw error
+    
+    out << left << setw(15) << "Vardas" << setw(15) << "Pavardė";
+    for (int i = 1; i <= 20; i++) out << setw(5) << ("ND" + to_string(i));
+    out << setw(5) << "Egz." << "\n";
+
+    for (int i = 1; i <= kiek; i++) {
+        // Šabloniniai vardai
+        out << left << setw(15) << ("Vardas" + to_string(i))
+            << setw(15) << ("Pavarde" + to_string(i));
+        for (int j = 0; j < 20; j++)
+            out << setw(5) << (mt() % 10 + 1);
+        out << setw(5) << (mt() % 10 + 1) << "\n";
+    }
+}
+
+void genPazymius(vector<int>& paz, int& egz) {
+    paz.clear();
+    for (int i = 0; i < 20; i++) paz.push_back(mt() % 10 + 1);
+    egz = mt() % 10 + 1;
+}
+
+
+
+double skaiciuotiVidurki(const vector<int>& paz) {
+    if (paz.empty()) return 0.0;
+    double suma = 0.0;
+    for (int p : paz) suma += p;
+    return suma / paz.size();
+}
+
+double skaiciuotiMediana(vector<int> paz) {
+    if (paz.empty()) return 0.0;
+    sort(paz.begin(), paz.end());
+    size_t n = paz.size();
+    if (n % 2 == 0) return (paz[n / 2 - 1] + paz[n / 2]) / 2.0;
+    else return paz[n / 2];
+}
+
+void apskaiciuotiPagalMetoda(Studentas& st, int metodas) {
+    if (metodas == 1 || metodas == 3)
+        st.gal_vid = skaiciuotiVidurki(st.paz) * 0.4 + st.egz * 0.6;
+    if (metodas == 2 || metodas == 3)
+        st.gal_med = skaiciuotiMediana(st.paz) * 0.4 + st.egz * 0.6;
+}
 
 // klaidu valymas skaiciu irasyme
 int gautiSkaiciu(string info, int min, int max) {
@@ -52,40 +109,6 @@ int gautiSkaiciu(string info, int min, int max) {
             cout << "Klaida: " << e.what() << " Bandykite dar kartą.\n";
         }
     }
-}
-
-/*
-genFaila veikia greiciau, nei rezultatu spausdinimo funkcija,
-nes nereikia formatuoti duomenų ir skaičiuoti galutinių pažymių.
-Taip pat, generuojant failą, tiesiog rašome skaičius be papildomų formatavimo operacijų, o
-spausdinant rezultatus, kiekvienam studentui reikia apskaičiuoti galutinį pažymį ir
-formatuoti išvestį, kas užtrunka daugiau laiko.
-Be to, spausdinant didelį kiekį duomenų į konsolę, gali būti lėtesnis procesas nei
-rašant į failą.
-*/
-void genFaila(const string& failas, int kiek) {
-    string failoVardas = "studentai" + to_string(kiek) + ".txt";
-    ofstream out(failas);
-    //prideti throw error
-    
-    out << left << setw(15) << "Vardas" << setw(15) << "Pavardė";
-    for (int i = 1; i <= 20; i++) out << setw(5) << ("ND" + to_string(i));
-    out << setw(5) << "Egz." << "\n";
-
-    for (int i = 1; i <= kiek; i++) {
-        // Šabloniniai vardai
-        out << left << setw(15) << ("Vardas" + to_string(i))
-            << setw(15) << ("Pavarde" + to_string(i));
-        for (int j = 0; j < 20; j++)
-            out << setw(5) << (mt() % 10 + 1);
-        out << setw(5) << (mt() % 10 + 1) << "\n";
-    }
-}
-
-void genPazymius(vector<int>& paz, int& egz) {
-    paz.clear();
-    for (int i = 0; i < 20; i++) paz.push_back(mt() % 10 + 1);
-    egz = mt() % 10 + 1;
 }
 
 void skaitytiVector(string failas, vector<Studentas>& grupe, int metodas) {

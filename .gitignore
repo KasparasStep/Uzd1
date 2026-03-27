@@ -370,3 +370,8 @@ FodyWeavers.xsd
 /Vector/studentai10k.txt
 /Vector/studentai1k.txt
 /Vector/studentai1M.txt
+/Data/studentai100k.txt
+/Data/studentai10k.txt
+/Data/studentai10M.txt
+/Data/studentai1k.txt
+/Data/studentai1M.txt

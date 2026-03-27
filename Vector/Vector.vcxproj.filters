@@ -22,4 +22,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Vector.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\studentai1k.txt" />
+    <Text Include="..\studentai1M.txt" />
+    <Text Include="..\studentai10k.txt" />
+    <Text Include="..\studentai10M.txt" />
+    <Text Include="..\studentai100k.txt" />
+  </ItemGroup>
 </Project>

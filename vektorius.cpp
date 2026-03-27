@@ -5,28 +5,6 @@
 static std::mt19937 mt(steady_clock::now().time_since_epoch().count());
 
 
-double skaiciuotiVidurki(const vector<int>& paz) {
-    if (paz.empty()) return 0.0;
-    double suma = 0.0;
-    for (int p : paz) suma += p;
-    return suma / paz.size();
-}
-
-double skaiciuotiMediana(vector<int> paz) {
-    if (paz.empty()) return 0.0;
-    sort(paz.begin(), paz.end());
-    size_t n = paz.size();
-    if (n % 2 == 0) return (paz[n / 2 - 1] + paz[n / 2]) / 2.0;
-    else return paz[n / 2];
-}
-
-void apskaiciuotiPagalMetoda(Studentas& st, int metodas) {
-    if (metodas == 1 || metodas == 3)
-        st.gal_vid = skaiciuotiVidurki(st.paz) * 0.4 + st.egz * 0.6;
-    if (metodas == 2 || metodas == 3)
-        st.gal_med = skaiciuotiMediana(st.paz) * 0.4 + st.egz * 0.6;
-}
-
 void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas) {
     ifstream in(failas);
     try {
