@@ -47,6 +47,8 @@ using std::streamsize;
 using std::to_string;
 using std::mt19937;
 using std::pair;
+using std::list;
+using std::deque;
 
 
 // paliktas tik vektorinis variantas
@@ -78,3 +80,7 @@ void splitStudents(const vector<Studentas>& visi, vector<Studentas>& kieti,
 
 void test1();
 void test2(const string& failas, int metodas);
+
+void skaitytiVector(string failas, vector<Studentas>& grupe, int metodas);
+void skaitytiList(string failas, list<Studentas>& grupe, int metodas);
+void skaitytiDeque(string failas, deque<Studentas>& grupe, int metodas);
