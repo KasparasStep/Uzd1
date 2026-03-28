@@ -8,16 +8,18 @@ C++17 programa studentų galutinių pažymių skaičiavimui, rūšiavimui ir ska
 ## Failų struktūra
 
 ```
-.
-├── struktura.h            — bendras antraštės failas (struktūra, using, prototipai)
-├── funkcijos.cpp          — pagalbinės funkcijos (generatoriai, matematika, I/O)
-├── vektorius.cpp          — pagrindinio meniu logika (v0.4, std::vector)
-├── testavimas.cpp         — test1 (failų kūrimas), test2 (vector lyginimas)
-├── Uzd1.cpp               — pagrindinis įėjimas senosios programos
-├── vector.cpp			   — v1.0 tyrimas: std::vector
-├── list.cpp     		   — v1.0 tyrimas: std::list
-├── deque.cpp    		   — v1.0 tyrimas: std::deque
-└── Data/                  — sugeneruoti testavimo failai (sukuriamas automatiškai)
+..
+├── struktura.h       — bendras antraštės failas (struktūra, using, prototipai)
+├── funkcijos.cpp     — pagalbinės funkcijos (generatoriai, matematika, I/O)
+├── vektorius.cpp     — pagrindinio meniu logika (v0.4, std::vector)
+├── testavimas.cpp    — test1 (failų kūrimas), test2 (vector lyginimas)
+├── Uzd1.cpp          — pagrindinis įėjimas (projektas Uzd1)
+├── stud_Vector.cpp        — v1.0 tyrimas: std::vector
+├── stud_List.cpp          — v1.0 tyrimas: std::list
+├── stud_Deque.cpp         — v1.0 tyrimas: std::deque
+├── CMakeLists.txt    — build konfigūracija (Windows / Linux / macOS)
+├── Makefile          — build konfigūracija (Linux / macOS, be CMake)
+└── Data/             — sugeneruoti testavimo failai (sukuriamas automatiškai)
     ├── studentai1k.txt
     ├── studentai10k.txt
     ├── studentai100k.txt
@@ -50,27 +52,78 @@ Data/
 - C++17 palaikantis kompiliatorius (`g++ 9+` arba `clang++ 9+` arba MSVC 2019+)
 - CMake 3.14+ (neprivaloma — galima kompiliuoti rankiniu būdu)
 
-### Su CMake (rekomenduojama)
+### Būdas 1 — Makefile (Linux / macOS)
+
+Nereikia jokių papildomų įrankių — tik `g++` ir `make`, kurie dažniausiai jau įdiegti.
+
+**Patikrink ar įrankiai yra:**
 
 ```bash
-mkdir build && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release
-cmake --build .
+g++ --version
+make --version
 ```
 
-Sukuriami vykdomieji failai: `programa`, `studentai_vector`, `studentai_list`, `studentai_deque`.
-
-### Rankiniu būdu (g++)
+Jei `g++` nėra — įdiek:
 
 ```bash
-# Pagrindinė programa (v0.4)
-g++ -O2 -std=c++17 Uzd1.cpp vektorius.cpp testavimas.cpp funkcijos.cpp -o programa
+# Ubuntu / Debian
+sudo apt install build-essential
 
-# Tyrimo programos (v1.0)
-g++ -O2 -std=c++17 studentai_vector.cpp funkcijos.cpp -o studentai_vector
-g++ -O2 -std=c++17 studentai_list.cpp   funkcijos.cpp -o studentai_list
-g++ -O2 -std=c++17 studentai_deque.cpp  funkcijos.cpp -o studentai_deque
+# macOS (per Homebrew)
+brew install gcc
 ```
+
+**Kompiliavimas:**
+
+```bash
+# Sukompiliuoja visus keturis projektus iš karto
+make
+
+# Arba tik vieną konkretų
+make Uzd1
+make vector
+make list
+make deque
+
+# Ištrinti sukompiliuotus failus
+make clean
+```
+
+Vykdomieji failai atsiranda tiesiai projekto kataloge šalia `.cpp` failų — `Data/` katalogas randamas teisingai.
+
+---
+
+### Būdas 2 — CMake (Windows / Linux / macOS)
+
+**Linux / macOS:**
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
+**Windows su MinGW:**
+
+```bash
+cmake -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+
+**Windows su Visual Studio** — atsidaryk `CMakeLists.txt` tiesiai per Visual Studio (File → Open → CMake), pasirink konfigūraciją Release ir spausk Build All.
+
+Vykdomieji failai rašomi tiesiai į projekto katalogą (ne į `build/`), kad `Data/` aplankas būtų randamas teisingai.
+
+---
+
+### Būdas 3 — rankiniu būdu (g++)
+
+```bash
+g++ -O2 -std=c++17 Uzd1.cpp vektorius.cpp testavimas.cpp funkcijos.cpp -o Uzd1
+g++ -O2 -std=c++17 vector.cpp funkcijos.cpp -o vector
+g++ -O2 -std=c++17 list.cpp   funkcijos.cpp -o list
+g++ -O2 -std=c++17 deque.cpp  funkcijos.cpp -o deque
+```
+
 
 
 ## Naudojimas
