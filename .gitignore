@@ -69,6 +69,15 @@ ScaffoldingReadMe.txt
 # StyleCop
 StyleCopReport.xml
 
+# CMake
+build/
+CMakeFiles/
+CMakeCache.txt
+cmake-build-*/
+
+*.LICENSE.txt
+*.kursiokai.txt
+
 # Files built by Visual Studio
 *_i.c
 *_p.c
@@ -97,6 +106,16 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.slnx
+*.vcxproj
+*.svcxproj.filters
+*.vs/
+*.vcxproj.user
+*.suo
+*.VC.db
+Debug/
+Release/
+x64/
 
 # Chutzpah Test files
 _Chutzpah*
