@@ -1,8 +1,8 @@
 // ============================================================
-// studentai_vector.cpp — tyrimas su std::vector
+// — tyrimas su std::vector
 //
 // Kompiliavimas:
-//   g++ -O2 -std=c++17 studentai_vector.cpp funkcijos.cpp -o studentai_vector
+//   g++ -O2 -std=c++17 vector.cpp funkcijos.cpp -o vector
 // ============================================================
 #include "struktura.h"
 #ifdef _WIN32

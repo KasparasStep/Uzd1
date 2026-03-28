@@ -45,7 +45,33 @@ Data/
 
 ## Įdiegimas ir kompiliavimas
 
-// Atsiras vėlesnėse versijose
+### Reikalavimai
+
+- C++17 palaikantis kompiliatorius (`g++ 9+` arba `clang++ 9+` arba MSVC 2019+)
+- CMake 3.14+ (neprivaloma — galima kompiliuoti rankiniu būdu)
+
+### Su CMake (rekomenduojama)
+
+```bash
+mkdir build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+cmake --build .
+```
+
+Sukuriami vykdomieji failai: `programa`, `studentai_vector`, `studentai_list`, `studentai_deque`.
+
+### Rankiniu būdu (g++)
+
+```bash
+# Pagrindinė programa (v0.4)
+g++ -O2 -std=c++17 Uzd1.cpp vektorius.cpp testavimas.cpp funkcijos.cpp -o programa
+
+# Tyrimo programos (v1.0)
+g++ -O2 -std=c++17 studentai_vector.cpp funkcijos.cpp -o studentai_vector
+g++ -O2 -std=c++17 studentai_list.cpp   funkcijos.cpp -o studentai_list
+g++ -O2 -std=c++17 studentai_deque.cpp  funkcijos.cpp -o studentai_deque
+```
+
 
 ## Naudojimas
 
@@ -131,7 +157,7 @@ Nuskaitymas visur panašus — skirtumai mažesni nei failo I/O triukšmas.
 | 1 000 000 įrašų     | 0.0855 | 0.5396  | 0.2673 |
 | 10 000 000 įrašų    | 0.7860 | 12.2730 | 4.2492 |
 
-`std::vector` rūšiuojamas greičiausiai dėl gretimos atminties (CPU talpykla). `list` yra ~2.5× lėtesnis 100k atveju — fragmentuota atmintis. `deque` artimas vektoriui.
+`std::vector` rūšiuojamas greičiausiai dėl gretimos atminties (CPU talpykla). `list` yra ~2.5× lėtesnis 100k atveju. `deque` artimas vektoriui.
 
 
 ## Skaidymo strategijos
@@ -148,9 +174,19 @@ Nuskaitymas visur panašus — skirtumai mažesni nei failo I/O triukšmas.
 | 1 000 000 įrašų     | 0.2446 | 0.3862 | 0.2574 |
 | 10 000 000 įrašų    | 3.1586 | 5.2494 | 3.2320 |
 
-```cpp
-copy_if(grupe.begin(), grupe.end(), back_inserter(kieti), sąlyga);
-copy_if(grupe.begin(), grupe.end(), back_inserter(vargsiukai), ne_sąlyga);
-```
-
 Originalas nekeičiamas. Kiekvienas studentas saugomas **dviejose** vietose atmintyje. Du pilni praėjimai per duomenis.
+
+### S3 — `stable_partition` + `move`/`splice`
+
+### Skaidymas (s)
+
+| Failas          	  | vector | list   | deque  |
+|---------------------|--------|--------|--------|
+| 1 000 įrašų     	  | 0.0000 | 0.0000 | 0.0000 |
+| 10 000 įrašų    	  | 0.0001 | 0.0001 | 0.0003 |
+| 100 000 įrašų   	  | 0.0011 | 0.0056 | 0.0045 |
+| 1 000 000 įrašų     | 0.0130 | 0.0736 | 0.0636 |
+| 10 000 000 įrašų    | 0.1820 | 0.8060 | 0.7349 |
+
+Duomenys tvarkomi **vietoje** — nereikia papildomos atminties iteracijoms. Vargšiukai perkeliami (`move`) be kopijavimo.
+ `list` versijoje vietoj `move` naudojamas `splice()` — tik rodyklių pakeitimas.

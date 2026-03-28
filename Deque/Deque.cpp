@@ -1,5 +1,5 @@
 // ============================================================
-// studentai_deque.cpp — tyrimas su std::deque
+// tyrimas su std::deque
 //
 // Pagrindiniai skirtumai nuo vector:
 //   - Nėra reserve() (deque to nepalaiko)
@@ -9,7 +9,7 @@
 //     kai viršijamas talpyklos dydis
 //
 // Kompiliavimas:
-//   g++ -O2 -std=c++17 studentai_deque.cpp funkcijos.cpp -o studentai_deque
+//   g++ -O2 -std=c++17 deque.cpp funkcijos.cpp -o deque
 // ============================================================
 #include "struktura.h"
 #ifdef _WIN32

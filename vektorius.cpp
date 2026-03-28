@@ -2,9 +2,6 @@
 
 static const string DATA_DIR = "Data/";
 
-// Pastaba: skaiciuotiVidurki, skaiciuotiMediana, apskaiciuotiPagalMetoda
-// perkeltos į funkcijos.cpp, kad jas naudotų visos trys konteinerių programos.
-
 // ============================================================
 // Duomenų skaitymas iš failo į vector
 // ============================================================
@@ -35,9 +32,8 @@ void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas
     cout << "Duomenys nuskaityti sėkmingai.\n";
 }
 
-// ============================================================
 // Rezultatų išvedimas (į ekraną arba failą)
-// ============================================================
+ 
 
 void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const string& failas) {
     ostream* out = &cout;
@@ -63,9 +59,7 @@ void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const stri
     }
 }
 
-// ============================================================
 // Skaidymas į dvi grupes (1 strategija: du nauji konteineriai)
-// ============================================================
 
 void splitStudents(const vector<Studentas>& visi,
     vector<Studentas>& kieti,
@@ -79,9 +73,8 @@ void splitStudents(const vector<Studentas>& visi,
         [&](const Studentas& st) { return galutinis(st) < 5.0; });
 }
 
-// ============================================================
 // Pagrindinis meniu (senoji v0.4 programa)
-// ============================================================
+ 
 
 void vykdytiVector() {
     vector<Studentas> grupe;

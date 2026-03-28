@@ -1,5 +1,5 @@
 // ============================================================
-// studentai_list.cpp — tyrimas su std::list
+// — tyrimas su std::list
 //
 // Pagrindiniai skirtumai nuo vector:
 //   - Rūšiavimui naudojamas grupe.sort() (narys), ne std::sort
@@ -7,7 +7,7 @@
 //   - Nėra reserve() (list to nepalaiko)
 //
 // Kompiliavimas:
-//   g++ -O2 -std=c++17 studentai_list.cpp funkcijos.cpp -o studentai_list
+//   g++ -O2 -std=c++17 list.cpp funkcijos.cpp -o list
 // ============================================================
 #include "struktura.h"
 #ifdef _WIN32
