@@ -1,10 +1,13 @@
+// ============================================================
+// studentai_vector.cpp — tyrimas su std::vector
+//
 // Kompiliavimas:
 //   g++ -O2 -std=c++17 studentai_vector.cpp funkcijos.cpp -o studentai_vector
 // ============================================================
 #include "struktura.h"
-
+#ifdef _WIN32
 #include <windows.h>
-
+#endif
 
 // ---- Duomenų skaitymas ----
 
@@ -76,15 +79,18 @@ static void split_S3(vector<Studentas>& grupe,
     grupe.erase(riba, grupe.end());
 }
 
+// Bendras katalogas duomenų failams (naudojamas visų trijų programų)
+static const string DATA_DIR = "Data/";
+
 // ---- Tyrimo lentelė ----
 
 static void vykdytiTyryma(int metodas) {
     const vector<pair<string, int>> failai = {
-        {"Data/studentai1k.txt",    1'000},
-        {"Data/studentai10k.txt",   10'000},
-        {"Data/studentai100k.txt",  100'000},
-        {"Data/studentai1M.txt",    1'000'000},
-        {"Data/studentai10M.txt",   10'000'000}
+        {DATA_DIR + "studentai1k.txt",    1'000},
+        {DATA_DIR + "studentai10k.txt",   10'000},
+        {DATA_DIR + "studentai100k.txt",  100'000},
+        {DATA_DIR + "studentai1M.txt",    1'000'000},
+        {DATA_DIR + "studentai10M.txt",   10'000'000}
     };
 
     cout << "\n=== std::vector TYRIMAS ===\n";
@@ -144,12 +150,13 @@ static void vykdytiTyryma(int metodas) {
 // ---- Failų generavimas ----
 
 static void generuotiFailus() {
+    fs::create_directories(DATA_DIR); // sukuria Data/ jei neegzistuoja
     const vector<pair<string, int>> failai = {
-        {"studentai1k.txt",    1'000},
-        {"studentai10k.txt",   10'000},
-        {"studentai100k.txt",  100'000},
-        {"studentai1M.txt",    1'000'000},
-        {"studentai10M.txt",   10'000'000}
+        {DATA_DIR + "studentai1k.txt",    1'000},
+        {DATA_DIR + "studentai10k.txt",   10'000},
+        {DATA_DIR + "studentai100k.txt",  100'000},
+        {DATA_DIR + "studentai1M.txt",    1'000'000},
+        {DATA_DIR + "studentai10M.txt",   10'000'000}
     };
     for (const auto& [vardas, kiek] : failai) {
         cout << "Generuojama " << vardas << " (" << kiek << " įrašų)...\n";
@@ -162,8 +169,10 @@ static void generuotiFailus() {
 }
 
 int main() {
+#ifdef _WIN32
     SetConsoleOutputCP(65001);
     SetConsoleCP(65001);
+#endif
     try {
         cout << "Skaičiavimo metodas:\n1 - Vidurkis\n2 - Mediana\n";
         int metodas = gautiSkaiciu("Pasirinkimas: ", 1, 2);

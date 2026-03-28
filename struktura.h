@@ -13,6 +13,8 @@
 #include <list>
 #include <deque>
 #include <filesystem>
+#include <windows.h>
+
 
 
 using std::cin;
@@ -50,7 +52,10 @@ using std::mt19937;
 using std::pair;
 using std::list;
 using std::deque;
+namespace fs = std::filesystem;
 
+
+namespace fs = std::filesystem;
 
 // paliktas tik vektorinis variantas
 struct Studentas {

@@ -1,5 +1,14 @@
-#include "struktura.h"
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
 
+#include <windows.h>
+
+#include "struktura.h"
+namespace fs = std::filesystem;
 static std::mt19937 mt(std::chrono::steady_clock::now().time_since_epoch().count());
 
 string genVarda() {
@@ -16,6 +25,8 @@ string genPavarde(string vardas) {
     }
     return Mpavardes[mt() % 10];
 }
+
+
 /*
 genFaila veikia greiciau, nei rezultatu spausdinimo funkcija,
 nes nereikia formatuoti duomenų ir skaičiuoti galutinių pažymių.
@@ -26,7 +37,10 @@ Be to, spausdinant didelį kiekį duomenų į konsolę, gali būti lėtesnis pro
 rašant į failą.
 */
 void genFaila(const string& failas, int kiek) {
-    string failoVardas = "studentai" + to_string(kiek) + ".txt";
+    if (!fs::exists("Data")) {
+        fs::create_directory("Data");
+    }
+    string failoVardas = "Data/studentai" + to_string(kiek) + ".txt";
     ofstream out(failas);
     //prideti throw error
     
@@ -49,8 +63,6 @@ void genPazymius(vector<int>& paz, int& egz) {
     for (int i = 0; i < 20; i++) paz.push_back(mt() % 10 + 1);
     egz = mt() % 10 + 1;
 }
-
-
 
 double skaiciuotiVidurki(const vector<int>& paz) {
     if (paz.empty()) return 0.0;
@@ -80,36 +92,28 @@ int gautiSkaiciu(string info, int min, int max) {
     while (true) {
         cout << info;
         try {
-            // 1. Bandome nuskaityti skaičių
             if (!(cin >> sk)) {
                 cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 throw invalid_argument("Įvestas ne skaičius!");
             }
-
-            // 2. TIKRINIMAS: Ar po skaičiaus seka nepageidaujami simboliai (pvz. taškas ar kablelis)?
-            // cin.peek() pažiūri į kitą simbolį buferyje
-            if (cin.peek() != '\n' && cin.peek() != ' ' && cin.peek() != '\t' && cin.peek() != EOF) {
+            if (cin.peek() != '\n' && cin.peek() != ' ' &&
+                cin.peek() != '\t' && cin.peek() != EOF) {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                throw invalid_argument("Skaičius negali turėti kablelio ar papildomų simbolių!");
+                throw invalid_argument("Skaičius negali turėti papildomų simbolių!");
             }
-
-            // 3. Diapazono tikrinimas
-            if (sk < min || sk > max) {
+            if (sk < min || sk > max)
                 throw out_of_range("Tokio pasirinkimo nėra!");
-            }
-
-            // Viskas gerai - išvalome buferį iki galo ir grąžiname reikšmę
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             return sk;
-
         }
         catch (const exception& e) {
             cout << "Klaida: " << e.what() << " Bandykite dar kartą.\n";
         }
     }
 }
+ 
 
 void skaitytiVector(string failas, vector<Studentas>& grupe, int metodas) {
     ifstream in(failas);

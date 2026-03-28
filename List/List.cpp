@@ -1,4 +1,4 @@
-#include "struktura.h"
+/*#include "struktura.h"
 
 int main() {
     string failas = "studentai10000.txt";
@@ -24,4 +24,4 @@ int main() {
         << "Rusiavimas: " << duration<double>(t3 - t2).count() << "s, "
         << "Skirstymas: " << duration<double>(t4 - t3).count() << "s\n";
     return 0;
-}
+}*/
