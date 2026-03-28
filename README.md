@@ -8,15 +8,15 @@ C++17 programa studentų galutinių pažymių skaičiavimui, rūšiavimui ir ska
 ## Failų struktūra
 
 ```
-..
+...
 ├── struktura.h       — bendras antraštės failas (struktūra, using, prototipai)
 ├── funkcijos.cpp     — pagalbinės funkcijos (generatoriai, matematika, I/O)
 ├── vektorius.cpp     — pagrindinio meniu logika (v0.4, std::vector)
 ├── testavimas.cpp    — test1 (failų kūrimas), test2 (vector lyginimas)
 ├── Uzd1.cpp          — pagrindinis įėjimas (projektas Uzd1)
-├── stud_Vector.cpp        — v1.0 tyrimas: std::vector
-├── stud_List.cpp          — v1.0 tyrimas: std::list
-├── stud_Deque.cpp         — v1.0 tyrimas: std::deque
+├── vector.cpp        — v1.0 tyrimas: std::vector  → vykdomasis: stud_Vector
+├── list.cpp          — v1.0 tyrimas: std::list    → vykdomasis: stud_List
+├── deque.cpp         — v1.0 tyrimas: std::deque   → vykdomasis: stud_Deque
 ├── CMakeLists.txt    — build konfigūracija (Windows / Linux / macOS)
 ├── Makefile          — build konfigūracija (Linux / macOS, be CMake)
 └── Data/             — sugeneruoti testavimo failai (sukuriamas automatiškai)
@@ -56,7 +56,7 @@ Data/
 
 Nereikia jokių papildomų įrankių — tik `g++` ir `make`, kurie dažniausiai jau įdiegti.
 
-**Patikrink ar įrankiai yra:**
+**1. Patikrink ar įrankiai yra:**
 
 ```bash
 g++ --version
@@ -69,11 +69,19 @@ Jei `g++` nėra — įdiek:
 # Ubuntu / Debian
 sudo apt install build-essential
 
-# macOS (per Homebrew)
-brew install gcc
+# macOS
+xcode-select --install
 ```
 
-**Kompiliavimas:**
+**2. Eik į projekto katalogą:**
+
+```bash
+cd /kelias/iki/projekto
+```
+
+Tai katalogas, kuriame yra `Makefile` ir visi `.cpp` failai.
+
+**3. Kompiliuok:**
 
 ```bash
 # Sukompiliuoja visus keturis projektus iš karto
@@ -81,11 +89,23 @@ make
 
 # Arba tik vieną konkretų
 make Uzd1
-make vector
-make list
-make deque
+make stud_Vector
+make stud_List
+make stud_Deque
+```
 
-# Ištrinti sukompiliuotus failus
+**4. Paleisk:**
+
+```bash
+./Uzd1
+./stud_Vector
+./stud_List
+./stud_Deque
+```
+
+**5. Ištrinti sukompiliuotus failus:**
+
+```bash
 make clean
 ```
 
@@ -119,11 +139,10 @@ Vykdomieji failai rašomi tiesiai į projekto katalogą (ne į `build/`), kad `D
 
 ```bash
 g++ -O2 -std=c++17 Uzd1.cpp vektorius.cpp testavimas.cpp funkcijos.cpp -o Uzd1
-g++ -O2 -std=c++17 vector.cpp funkcijos.cpp -o vector
-g++ -O2 -std=c++17 list.cpp   funkcijos.cpp -o list
-g++ -O2 -std=c++17 deque.cpp  funkcijos.cpp -o deque
+g++ -O2 -std=c++17 vector.cpp funkcijos.cpp -o stud_Vector
+g++ -O2 -std=c++17 list.cpp   funkcijos.cpp -o stud_List
+g++ -O2 -std=c++17 deque.cpp  funkcijos.cpp -o stud_Deque
 ```
-
 
 
 ## Naudojimas
@@ -136,10 +155,10 @@ Interaktyvus meniu. Leidžia įvesti studentus ranka, generuoti juos arba nuskai
 
 Paleiskite bet kurią iš trijų programų. Pirmą kartą pasirinkite failų generavimą — jie bus sukurti `Data/` kataloge ir visų programų bendrai naudojami.
 
-```bash
-./vector   # sugeneruoja Data/ ir atlieka tyrimą
-./list     # naudoja tuos pačius Data/ failus
-./deque    # naudoja tuos pačius Data/ failus
+```
+./stud_Vector   # sugeneruoja Data/ ir atlieka tyrimą
+./stud_List     # naudoja tuos pačius Data/ failus
+./stud_Deque    # naudoja tuos pačius Data/ failus
 ```
 
 Failų generuoti antrą kartą nereikia — tiesiog atsakykite `0` į klausimą apie generavimą.
@@ -171,12 +190,14 @@ Pridėtos trys atskiros tyrimo programos (`vector`, `list`, `deque`), matuojanč
 
 - duomenų nuskaitymą iš failo;
 - studentų rūšiavimą mažėjančia galutinio pažymio tvarka;
-/* Bus prideta vėliau: - skaidymą į dvi grupes dviem strategijomis (S1 ir S3).*/
+
+### v1.0
+- skaidymą į dvi grupes dviem strategijomis (S1 ir S3).
 
 
 ## Konteinerių tyrimo rezultatai
 
-Testavimo sistema: *()*
+Testavimo sistema: *(ASUS VIVOBOOK S 14)*
 
 | Parametras 	 | Reikšmė 		  |
 |----------------|----------------|

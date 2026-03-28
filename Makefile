@@ -1,8 +1,7 @@
 CXX      := g++
 CXXFLAGS := -std=c++17 -O2 -Wall
 
-# Visi keturi tikslai
-TARGETS := Uzd1 vector list deque
+TARGETS := Uzd1 stud_Vector stud_List stud_Deque
 
 .PHONY: all clean
 
@@ -13,15 +12,14 @@ Uzd1: Uzd1.cpp vektorius.cpp testavimas.cpp funkcijos.cpp struktura.h
 	$(CXX) $(CXXFLAGS) Uzd1.cpp vektorius.cpp testavimas.cpp funkcijos.cpp -o Uzd1
 
 # ---- Tyrimo projektai ----
-vector: vector.cpp funkcijos.cpp struktura.h
-	$(CXX) $(CXXFLAGS) vector.cpp funkcijos.cpp -o vector
+stud_Vector: vector.cpp funkcijos.cpp struktura.h
+	$(CXX) $(CXXFLAGS) vector.cpp funkcijos.cpp -o stud_Vector
 
-list: list.cpp funkcijos.cpp struktura.h
-	$(CXX) $(CXXFLAGS) list.cpp funkcijos.cpp -o list
+stud_List: list.cpp funkcijos.cpp struktura.h
+	$(CXX) $(CXXFLAGS) list.cpp funkcijos.cpp -o stud_List
 
-deque: deque.cpp funkcijos.cpp struktura.h
-	$(CXX) $(CXXFLAGS) deque.cpp funkcijos.cpp -o deque
+stud_Deque: deque.cpp funkcijos.cpp struktura.h
+	$(CXX) $(CXXFLAGS) deque.cpp funkcijos.cpp -o stud_Deque
 
-# Vykdomieji failai ištrinami, o ne .o — kompiliuojame vienu žingsniu
 clean:
 	rm -f $(TARGETS)
