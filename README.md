@@ -1,87 +1,156 @@
-# Uzd1
-v0.1 dokumentacija.
+# Pirmoji užduotis — v1.0 pre-release
 
-v0.1 sudaro 4 failai:
-1)	struktura.h sudaro studentų struct abiems duomenu saugojimo variantams, bibliotekos,
-	kurias importuoja kiti failai ir funkciju prototipai.
-2)	Uzd1.cpp yra pagrindinis programos meniu ir kelios kitos funkcijos
-	(vardu, pavardziu generavimas ir skaiciaus ivedimas)	
-3)	vektorius.cpp tai programos realizavimas naudojant std::vector konteinerį
-4)	c_masyvas.cpp tai programos realizavimas naudojant dinaminius masyvus ir rodykles.
+C++17 programa studentų galutinių pažymių skaičiavimui, rūšiavimui ir skaidymui į grupes. Versija v1.0 prideda konteinerių greičio tyrimą
+(`std::vector`, `std::list`, `std::deque`).
 
-Programa gali naudoti arba std::vector variantą arba dinaminių masyvų variantą.
-Toliau programa gali panaudoti 3 duomenų įvedimo būdus:
-1)	Vartotojas visus duomenis surašo rankiniu būdu.
-2)	Vartotojas įveda vardą ir pavardę, o pažymiai sugeneruojami.
-3)	Viskas sugeneruojama.
+---
 
-Generavimui panaudota: 20 vardų (10 vyr. g. ir 10 mot. g) ir
-			10 pavardžių (pagal vardo giminę priskiriama ir atitinkama giminė pavarde)
-Generuojami lygiai 5 pazymiai, kitokio pasirinkimo nera. Norint pakeisti, reikėtų keisti kodą.
-Sugeneruojami 5 "namų darbų" ir egzamino balas, kurie toliau panaudojami galutinio balo skaičiavimui.
+## Failų struktūra
 
-Galutinio balo skaičiavimui galima pasirinkti, ar naudoti vidurkį ar medianą.
-Medianos skaičiavimui panaudojama sort funkcija.
-Šis būdas skiriasi nuo v.pradinės versijos, kurioje buvo naudojamas nth_element algoritmas.
-Galutinio balo formulė: 0.4 * (vidurkis arba mediana) + 0.6 * egzamino balas
+```
+.
+├── struktura.h            — bendras antraštės failas (struktūra, using, prototipai)
+├── funkcijos.cpp          — pagalbinės funkcijos (generatoriai, matematika, I/O)
+├── vektorius.cpp          — pagrindinio meniu logika (v0.4, std::vector)
+├── testavimas.cpp         — test1 (failų kūrimas), test2 (vector lyginimas)
+├── Uzd1.cpp               — pagrindinis įėjimas senosios programos
+├── vector.cpp			   — v1.0 tyrimas: std::vector
+├── list.cpp     		   — v1.0 tyrimas: std::list
+├── deque.cpp    		   — v1.0 tyrimas: std::deque
+└── Data/                  — sugeneruoti testavimo failai (sukuriamas automatiškai)
+    ├── studentai1k.txt
+    ├── studentai10k.txt
+    ├── studentai100k.txt
+    ├── studentai1M.txt
+    └── studentai10M.txt
+```
 
-Dinaminės atminties valdymas labai paprastas:
-1)	Kai užsipildo masyvas (n == talpa) rezervuojamaa nauja, dvigubai didesnė atminities vieta.
-2)	Dabartiniai duomenys perkeliame į naują vietą.
-3)	Sena duomenu vieta atlaisvinama su delete[] .
-Pradinė masyvo talpa yra 30, t. y. rezervuojama vieta 30 studentų.
+### Bendras `Data/` katalogas
 
-Duomenu generavimui naudojama Mersenne Twister (mt19937) generatorius.
-Naudojama static std::mt19937, kad sugeneruoti duomenys nebūtų vienodi.
-Taip pat naudojama chrono::seed, kad generatoriaus "seed" būtų skirtingas kiekviena kartą paleidus programą.
+Visos trys tyrimo programos (`vector`, `list`, `deque`) ir senoji (v0.4) programa skaito duomenų failus iš to paties `Data/` katalogo.
+Tai reiškia, kad failus reikia sugeneruoti tik vieną kartą — bet kuri programa gali tai padaryti, o likusios naudos tuos pačius failus.
 
-Po kiekvieno veiksmo galima grįžti į pagrindinį meniu (reikia įrašyti "4").
-Pagrindiniame meniu galima užbaigti programą (reikia įrašyti "0").
+Katalogas sukuriamas automatiškai, kai pasirenkate failų generavimą. Jis atsiranda šalia vykdomojo failo.
 
-Kai duomenys įvedami rankiniu būdų, įvedimą galima sustabdyti įrašant "stop".
+```
+Data/
+├── studentai1k.txt      (~136 KB)
+├── studentai10k.txt     (~1.4 MB)
+├── studentai100k.txt    (~14 MB)
+├── studentai1M.txt      (~136 MB)
+└── studentai10M.txt     (~1.4 GB)
+```
 
-Programoje yra minimalus klaidų valdymas. Naudojama try-catch ir std::stoi.
-Taip pat naudojama cin.clear() ir cin.ignore().
+---
 
-v0.2 dokumentacija
+## Įdiegimas ir kompiliavimas
 
-Panaikintas c_masyvas.cpp bei visos funkcijos susijusios su masyvais.
-Dabar generuojama 20 pazymiu.
-Galimybe nuskaityti info is failo bei irasyti rezultata i faila.
+// Atsiras vėlesnėse versijose
 
-Testavimas:
-Su 10000: nuskaitymo vidurkis 0.379853 s (DEBUG); 0.03973865 (RELEASE);
+## Naudojimas
 
-SU 100000: nuskaitymo vidurkis 4.678703 s (DEBUG); 0.4749995 (RELEASE);
+### Pagrindinė programa
 
-Su 1000000: nuskaitymo vidurkis 24.250467 s (DEBUG); 2.099945 (RELEASE);
+Interaktyvus meniu. Leidžia įvesti studentus ranka, generuoti juos arba nuskaityti iš failo, rūšiuoti ir skaidyti į grupes.
 
-Kiti testavimo duomenys:
+### Tyrimo programos
 
-Testavimas vyksta iprastomis salygomis. Tai yra, kompiuteryje atidarytas tik visual studio, notepad++, o fone veikia windows defender ir AMD software.
-studentai10000.txt:
-	Nuskaitymas		Rusiavimas	Spausdinimas
-	
-	1. 0.381866 s	0.0522 s	0.0661 s  
-	2. 0.379624 s	0.0525 s	0.0675 s	( 14.2212 s (spausdinimas i konsole))
-	3. 0.379853 s	0.0513 s	0.0653 s
-	4. 0.0397989 s	0.0015 s	0.0264 s (RELEASE)
-	5. 0.0396784 s	0.0015 s	0.0269 s (RELEASE)
-	
-studentai100000.txt:
-	Nuskaitymas		Rusiavimas	Spausdinimas
-	
-	1. 4.66092 s	0.6027 s	0.6351 s
-	2. 4.67711 s	0.5977 s	0.6459 s
-	3. 4.69808 s	0.5925 s	0.6422 s	( 136.9455 s (spausdinimas i konsole))
-	4. 0.476265 s	0.0133 s	0.2574 s (RELEASE)
-	5. 0.473734 s	0.0187 s	0.2581 s (RELEASE)	125.4006 s (spausdinimas i konsole)
-	
-studentai1000000.txt:
-	Nuskaitymas		Rusiavimas	Spausdinimas
-	
-	1. 24.2544 s	5.9000 s	6.1552 s
-	2. 24.2507 s	10.6223 s	6.1837 s
-	3. 24.2463 s	10.6634 s	6.9418 s	( 1306.3533 s (spausdinimas i konsole))
-	4. 2.09501 s	0.2144 s	2.4617 s (RELEASE)
-	5. 2.10488 s	0.0860 s	2.4743 s (RELEASE)
+Paleiskite bet kurią iš trijų programų. Pirmą kartą pasirinkite failų generavimą — jie bus sukurti `Data/` kataloge ir visų programų bendrai naudojami.
+
+```bash
+./vector   # sugeneruoja Data/ ir atlieka tyrimą
+./list     # naudoja tuos pačius Data/ failus
+./deque    # naudoja tuos pačius Data/ failus
+```
+
+Failų generuoti antrą kartą nereikia — tiesiog atsakykite `0` į klausimą apie generavimą.
+
+---
+
+## Releasai
+
+### v0.1 — pradinė versija
+
+Bazinė struktūra: `Studentas` su `std::vector<int>` pažymiams, rankinis įvedimas, galutinio pažymio skaičiavimas vidurkiu ir mediana.
+
+### v0.2
+
+Pridėtas skaitymas iš failo ir rezultatų išvedimas į failą.
+
+### v0.3
+
+Pridėtas automatinis duomenų generavimas (vardai, pavardės, pažymiai). Pridėta klaidų apdorojimas `gautiSkaiciu` funkcijai.
+
+### v0.4
+
+Pridėtas studentų skaidymas į dvi grupes: `kieti` (galutinis ≥ 5.0) ir `tinginiai` (galutinis < 5.0).
+Pridėtas failų kūrimo ir duomenų apdorojimo greičio tyrimas (test1, test2). Naudojama `copy_if` į du naujus `std::vector` konteinerius.
+
+### v1.0 -prerelease
+
+Pridėtos trys atskiros tyrimo programos (`vector`, `list`, `deque`), matuojančios:
+
+- duomenų nuskaitymą iš failo;
+- studentų rūšiavimą mažėjančia galutinio pažymio tvarka;
+/* Bus prideta vėliau: - skaidymą į dvi grupes dviem strategijomis (S1 ir S3).*/
+
+
+## Konteinerių tyrimo rezultatai
+
+Testavimo sistema: *()*
+
+| Parametras 	 | Reikšmė 		  |
+|----------------|----------------|
+| CPU        	 | AMD Ryzen AI 9 |
+| RAM        	 | 24 GB 		  |
+| Saugykla   	 | 1 TB SSD (NVMe)|
+| OS         	 | Windows 11	  |
+| Kompiliatorius | g++ 		  	  |
+
+Žemiau pateikti rezultatai, gauti testavimo metu (su release):
+
+### Nuskaitymas (s)
+
+| Failas          	  | vector  | list    | deque  |
+|---------------------|---------|---------|--------|
+| 1 000 įrašų     	  | 0.0050  | 0.0042  | 0.0050 |
+| 10 000 įrašų    	  | 0.0411  | 0.0407  | 0.0406 |
+| 100 000 įrašų   	  | 0.3905  | 0.3891  | 0.3811 |
+| 1 000 000 įrašų     | 3.7790  | 3.7911  | 3.7534 |
+| 10 000 000 įrašų    | 38.2739 | 50.6590 | 49.0184 |
+
+Nuskaitymas visur panašus — skirtumai mažesni nei failo I/O triukšmas.
+
+### Rūšiavimas (s)
+
+| Failas          	  | vector | list    | deque  |
+|---------------------|--------|---------|--------|
+| 1 000 įrašų     	  | 0.0001 | 0.0000  | 0.0001 |
+| 10 000 įrašų    	  | 0.0009 | 0.0007  | 0.0011 |
+| 100 000 įrašų   	  | 0.0073 | 0.0193  | 0.0128 |
+| 1 000 000 įrašų     | 0.0855 | 0.5396  | 0.2673 |
+| 10 000 000 įrašų    | 0.7860 | 12.2730 | 4.2492 |
+
+`std::vector` rūšiuojamas greičiausiai dėl gretimos atminties (CPU talpykla). `list` yra ~2.5× lėtesnis 100k atveju — fragmentuota atmintis. `deque` artimas vektoriui.
+
+
+## Skaidymo strategijos
+
+### S1 — du nauji konteineriai (`copy_if`)
+
+### Skaidymas (s)
+
+| Failas          	  | vector | list   | deque  |
+|---------------------|--------|--------|--------|
+| 1 000 įrašų     	  | 0.0002 | 0.0001 | 0.0001 |
+| 10 000 įrašų    	  | 0.0016 | 0.0021 | 0.0014 |
+| 100 000 įrašų   	  | 0.0215 | 0.0330 | 0.0236 |
+| 1 000 000 įrašų     | 0.2446 | 0.3862 | 0.2574 |
+| 10 000 000 įrašų    | 3.1586 | 5.2494 | 3.2320 |
+
+```cpp
+copy_if(grupe.begin(), grupe.end(), back_inserter(kieti), sąlyga);
+copy_if(grupe.begin(), grupe.end(), back_inserter(vargsiukai), ne_sąlyga);
+```
+
+Originalas nekeičiamas. Kiekvienas studentas saugomas **dviejose** vietose atmintyje. Du pilni praėjimai per duomenis.
