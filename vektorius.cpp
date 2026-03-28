@@ -1,40 +1,43 @@
 #include "struktura.h"
 
+static const string DATA_DIR = "Data/";
 
-// Atsitiktinių skaičių generatorius
-static std::mt19937 mt(steady_clock::now().time_since_epoch().count());
+// Pastaba: skaiciuotiVidurki, skaiciuotiMediana, apskaiciuotiPagalMetoda
+// perkeltos į funkcijos.cpp, kad jas naudotų visos trys konteinerių programos.
 
+// ============================================================
+// Duomenų skaitymas iš failo į vector
+// ============================================================
 
 void skaitytiIsFailo(const string& failas, vector<Studentas>& grupe, int metodas) {
     ifstream in(failas);
-    try {
-        if (!in) throw std::runtime_error("Failas nerastas: " + failas);
+    if (!in) throw runtime_error("Failas nerastas: " + failas);
 
-        string line;
-        getline(in, line); // Praleisti antrastę
+    string eilute;
+    getline(in, eilute); // praleisti antraštę
 
-        while (getline(in, line)) {
-            if (line.empty()) continue;
-            stringstream ss(line);
-            Studentas st;
-            if (!(ss >> st.vardas >> st.pavarde)) continue;
+    while (getline(in, eilute)) {
+        if (eilute.empty()) continue;
+        stringstream ss(eilute);
+        Studentas st;
+        if (!(ss >> st.vardas >> st.pavarde)) continue;
 
-            int p;
-            while (ss >> p) st.paz.push_back(p);
+        int p;
+        while (ss >> p) st.paz.push_back(p);
 
-            if (!st.paz.empty()) {
-                st.egz = st.paz.back();
-                st.paz.pop_back();
-                apskaiciuotiPagalMetoda(st, metodas);
-                grupe.push_back(move(st));
-            }
+        if (!st.paz.empty()) {
+            st.egz = st.paz.back();
+            st.paz.pop_back();
+            apskaiciuotiPagalMetoda(st, metodas);
+            grupe.push_back(move(st));
         }
-        cout << "Duomenys nuskaityti sėkmingai.\n";
     }
-    catch (const std::exception& e) {
-        cerr << "Klaida skaitant failą: " << e.what() << endl;
-    }
+    cout << "Duomenys nuskaityti sėkmingai.\n";
 }
+
+// ============================================================
+// Rezultatų išvedimas (į ekraną arba failą)
+// ============================================================
 
 void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const string& failas) {
     ostream* out = &cout;
@@ -52,16 +55,40 @@ void spausdintiRezultatus(const vector<Studentas>& grupe, int rodyti, const stri
 
     for (const auto& st : grupe) {
         (*out) << left << setw(15) << st.vardas << setw(15) << st.pavarde;
-        if (rodyti == 1 || rodyti == 3) (*out) << fixed << setprecision(2) << setw(20) << st.gal_vid;
-        if (rodyti == 2 || rodyti == 3) (*out) << fixed << setprecision(2) << setw(20) << st.gal_med;
+        if (rodyti == 1 || rodyti == 3)
+            (*out) << fixed << setprecision(2) << setw(20) << st.gal_vid;
+        if (rodyti == 2 || rodyti == 3)
+            (*out) << fixed << setprecision(2) << setw(20) << st.gal_med;
         (*out) << endl;
     }
 }
 
+// ============================================================
+// Skaidymas į dvi grupes (1 strategija: du nauji konteineriai)
+// ============================================================
+
+void splitStudents(const vector<Studentas>& visi,
+    vector<Studentas>& kieti,
+    vector<Studentas>& tinginiai, int metodas) {
+    auto galutinis = [&](const Studentas& st) {
+        return (metodas == 2) ? st.gal_med : st.gal_vid;
+        };
+    copy_if(visi.begin(), visi.end(), back_inserter(kieti),
+        [&](const Studentas& st) { return galutinis(st) >= 5.0; });
+    copy_if(visi.begin(), visi.end(), back_inserter(tinginiai),
+        [&](const Studentas& st) { return galutinis(st) < 5.0; });
+}
+
+// ============================================================
+// Pagrindinis meniu (senoji v0.4 programa)
+// ============================================================
+
 void vykdytiVector() {
     vector<Studentas> grupe;
-    int metodas = gautiSkaiciu("Skaičiavimo metodas:\n1 - Vidurkis\n2 - Mediana\n3 - Abu.\nPasirinkimas: ", 1, 3);
-    // testavimo meniu
+
+    int metodas = gautiSkaiciu(
+        "Skaičiavimo metodas:\n1 - Vidurkis\n2 - Mediana\n3 - Abu.\nPasirinkimas: ", 1, 3);
+
     cout << "\nAr norite paleisti greičio tyrimus?\n";
     cout << "1 - Tyrimas 1 (failų kūrimas)\n";
     cout << "2 - Tyrimas 2 (duomenų apdorojimas)\n";
@@ -70,33 +97,28 @@ void vykdytiVector() {
     int tPas = gautiSkaiciu("Pasirinkimas: ", 0, 3);
 
     if (tPas == 1 || tPas == 3) test1();
-    //if (tPas == 2 || tPas == 3) 
+    if (tPas == 2 || tPas == 3) test2("", metodas);
 
-    
-    //meniu
     while (true) {
         cout << "\n--- MENIU ---\n";
         cout << "1 - Įrašyti viską ranka\n";
         cout << "2 - Įrašyti vardus ranka, generuoti tik pažymius\n";
-        cout << "3 - Generuoti viską (vardus/pavardes ir pažymius)\n";
+        cout << "3 - Generuoti viską\n";
         cout << "4 - Nuskaityti iš failo\n";
-		cout << "5 - Generuoti studentų failus (1 tūkst. / 10 tūkst. / 100 tūkst. / 1 M / 10 M)\n";
+        cout << "5 - Generuoti studentų failus\n";
         cout << "0 - Baigti duomenų suvedimą ir rikiuoti\n";
         int pas = gautiSkaiciu("Pasirinkimas: ", 0, 5);
 
-		// 0 variantas: baigti įvedimą
         if (pas == 0) break;
 
-		// 1 ir 2 variantai: rankinis įvedimas
         if (pas == 1 || pas == 2) {
             Studentas st;
             cout << "Įveskite vardą: "; cin >> st.vardas;
             cout << "Įveskite pavardę: "; cin >> st.pavarde;
 
             if (pas == 1) {
-                // 1 variantas: Viskas ranka
                 string input;
-                cout << "Įveskite N.D. pažymius (1-10). 'stop' - baigti: \n";
+                cout << "Įveskite N.D. pažymius (1-10). 'stop' - baigti:\n";
                 while (cin >> input && input != "stop") {
                     try {
                         int p = stoi(input);
@@ -108,18 +130,13 @@ void vykdytiVector() {
                 st.egz = gautiSkaiciu("Įveskite egzamino balą (1-10): ", 1, 10);
             }
             else {
-                // 2 variantas: generuojami tik pazymiai
                 genPazymius(st.paz, st.egz);
                 cout << "Sugeneruoti " << st.paz.size() << " pažymiai ir egzaminas.\n";
             }
             apskaiciuotiPagalMetoda(st, metodas);
             grupe.push_back(move(st));
-
         }
-
-        // 3 variantas: Generuoti viska
         else if (pas == 3) {
-            
             int kiek = gautiSkaiciu("Kiek studentų generuoti? ", 1, 1000000);
             for (int i = 0; i < kiek; i++) {
                 Studentas st;
@@ -130,140 +147,90 @@ void vykdytiVector() {
                 grupe.push_back(move(st));
             }
             cout << "Sugeneruota.\n";
-
         }
-
-		// 4 variantas: Iš failo
         else if (pas == 4) {
-            // 4 variantas: Iš failo
             string f;
-            cout << "Įveskite failo pavadinimą (pvz. studentai10000.txt): ";
+            cout << "Įveskite failo pavadinimą (iš Data/ katalogo): ";
             cin >> f;
             auto s = high_resolution_clock::now();
-            skaitytiIsFailo(f, grupe, metodas);
+            skaitytiIsFailo(DATA_DIR + f, grupe, metodas);
             auto e = high_resolution_clock::now();
             cout << "Nuskaityta per: " << duration<double>(e - s).count() << " s\n";
         }
-
-		// 5 variantas: Generuoti failus
         else if (pas == 5) {
             cout << "\nKurį failą generuoti?\n";
-            cout << "1 -      1 000 įrašų\n";
-            cout << "2 -     10 000 įrašų\n";
-            cout << "3 -    100 000 įrašų\n";
-            cout << "4 -  1 000 000 įrašų\n";
-            cout << "5 - 10 000 000 įrašų\n";
-            cout << "6 - Visus iš karto\n";
+            cout << "1 -      1 000 įrašų\n2 -     10 000 įrašų\n";
+            cout << "3 -    100 000 įrašų\n4 -  1 000 000 įrašų\n";
+            cout << "5 - 10 000 000 įrašų\n6 - Visus iš karto\n";
             int fPas = gautiSkaiciu("Pasirinkimas: ", 1, 6);
 
             vector<pair<string, int>> failai = {
-                {"studentai1k.txt",  1000},
-                {"studentai10k.txt", 10000},
-                {"studentai100k.txt",100000},
-                {"studentai1M.txt",  1000000},
-                {"studentai10M.txt", 10000000}
+                {DATA_DIR + "studentai1k.txt",    1000},
+                {DATA_DIR + "studentai10k.txt",   10000},
+                {DATA_DIR + "studentai100k.txt",  100000},
+                {DATA_DIR + "studentai1M.txt",    1000000},
+                {DATA_DIR + "studentai10M.txt",   10000000}
             };
-            // jei tik vieną failą
+            fs::create_directories(DATA_DIR);
             if (fPas >= 1 && fPas <= 5) {
                 auto& [vardas, kiek] = failai[fPas - 1];
                 cout << "Generuojama: " << vardas << "...\n";
                 auto t1 = high_resolution_clock::now();
                 genFaila(vardas, kiek);
                 auto t2 = high_resolution_clock::now();
-                cout << "Sugeneruota per: "
-                    << fixed << setprecision(4)
+                cout << "Sugeneruota per: " << fixed << setprecision(4)
                     << duration<double>(t2 - t1).count() << " s\n";
             }
-            // jei visi iš karto
             else {
                 for (auto& [vardas, kiek] : failai) {
                     cout << "Generuojama: " << vardas << " (" << kiek << " įrašų)...\n";
                     auto t1 = high_resolution_clock::now();
                     genFaila(vardas, kiek);
                     auto t2 = high_resolution_clock::now();
-                    cout << "Sugeneruota per: "
-                        << fixed << setprecision(4)
+                    cout << "Sugeneruota per: " << fixed << setprecision(4)
                         << duration<double>(t2 - t1).count() << " s\n";
                 }
-                cout << "\nVisi failai sugeneruoti.\n";
+                cout << "Visi failai sugeneruoti.\n";
             }
         }
     }
 
-    if (grupe.empty()) {
-        cout << "Sąrašas tuščias.\n";
-        return;
-    }
+    if (grupe.empty()) { cout << "Sąrašas tuščias.\n"; return; }
 
-    // rusiavimas
+    cout << "\nKaip rūšiuoti?\n1 - Pagal vardą\n2 - Pagal pavardę\n3 - Pagal galutinį pažymį\n";
+    int rPas = gautiSkaiciu("Pasirinkimas: ", 1, 3);
 
-    cout << "\nKaip rūšiuoti duomenis?\n";
-    cout << "1 - Pagal Vardą\n2 - Pagal pavardę\n3 - Pagal galutinį pažymį\n";
-    int rPasirinkimas = gautiSkaiciu("Pasirinkimas: ", 1, 3);
-
-
-    sort(grupe.begin(), grupe.end(), [rPasirinkimas, metodas](const Studentas& a, const Studentas& b) {
-        switch (rPasirinkimas) {
-            case 1: return a.vardas < b.vardas;
-            case 2: return a.pavarde < b.pavarde;
-            case 3: {
-                double galA = (metodas == 2) ? a.gal_med : a.gal_vid;
-                double galB = (metodas == 2) ? b.gal_med : b.gal_vid;
-                return galA > galB;// mazejimo tvarka
-            }
-            default: return a.pavarde < b.pavarde;
+    sort(grupe.begin(), grupe.end(), [rPas, metodas](const Studentas& a, const Studentas& b) {
+        switch (rPas) {
+        case 1: return a.vardas < b.vardas;
+        case 2: return a.pavarde < b.pavarde;
+        case 3: {
+            double ga = (metodas == 2) ? a.gal_med : a.gal_vid;
+            double gb = (metodas == 2) ? b.gal_med : b.gal_vid;
+            return ga > gb;
+        }
+        default: return a.pavarde < b.pavarde;
         }
         });
 
-    cout << "Kur išvesti?\n1 - Ekranas\n2 - Failas.\nPasirinkimas: ";
-    int kur = gautiSkaiciu("", 1, 2);
-    string fVardas = "";
-    if (kur == 2) { cout << "\nFailo pavadinimas(pvz.: rezultatai.txt): "; cin >> fVardas; }
-
+    cout << "Kur išvesti?\n1 - Ekranas\n2 - Failas\n";
+    int kur = gautiSkaiciu("Pasirinkimas: ", 1, 2);
+    string fVardas;
+    if (kur == 2) { cout << "Failo pavadinimas: "; cin >> fVardas; }
     spausdintiRezultatus(grupe, metodas, fVardas);
 
-    //skirtsymas į dvi dalis
-    cout << "\nAr skirstyti studentus į dvi grupes (kieti / tinginiai)?\n";
-    cout << "1 - Taip\n2 - Ne\n";
-    int skPas = gautiSkaiciu("Pasirinkimas: ", 1, 2);
-
-    if (skPas == 1) {
+    cout << "\nAr skirstyti į dvi grupes? 1 - Taip  2 - Ne\n";
+    if (gautiSkaiciu("Pasirinkimas: ", 1, 2) == 1) {
         vector<Studentas> kieti, tinginiai;
-
         splitStudents(grupe, kieti, tinginiai, metodas);
+        cout << "Kieti (>= 5.0): " << kieti.size() << "\n";
+        cout << "Tinginiai (< 5.0): " << tinginiai.size() << "\n";
 
-        cout << "\nKieti (>= 5.0): " << kieti.size() << " studentų\n";
-        cout << "Tinginiai  (< 5.0): " << tinginiai.size() << " studentų\n";
-
-        // Failų pavadinimai
-        string kietuFailas, tinginiuFailas;
-        cout << "\nKietų failo pavadinimas (pvz. kieti.txt): ";
-        cin >> kietuFailas;
-        cout << "Tinginių failo pavadinimas (pvz. tinginiai.txt): ";
-        cin >> tinginiuFailas;
-
-        spausdintiRezultatus(kieti, metodas, kietuFailas);
-        spausdintiRezultatus(tinginiai, metodas, tinginiuFailas);
-
-        cout << "\nFailai sukurti:\n";
-        cout << "  " << kietuFailas << " (" << kieti.size() << " įrašų)\n";
-        cout << "  " << tinginiuFailas << " (" << tinginiai.size() << " įrašų)\n";
+        string kF, tF;
+        cout << "Kietų failo pavadinimas: ";   cin >> kF;
+        cout << "Tinginių failo pavadinimas: "; cin >> tF;
+        spausdintiRezultatus(kieti, metodas, kF);
+        spausdintiRezultatus(tinginiai, metodas, tF);
+        cout << "Failai sukurti: " << kF << " ir " << tF << "\n";
     }
-}
-
-void splitStudents(const vector<Studentas>& visi, vector<Studentas>& kieti,
-    vector <Studentas>& tiniginiai, int metodas) {
-    auto galutinis = [&](const Studentas& st) {
-        return (metodas == 2) ? st.gal_med : st.gal_vid;
-        };
-
-    //copy if kopijuoja tik tuos elementus, kurie atitinka salyga
-    copy_if(visi.begin(), visi.end(), back_inserter(kieti), [&](const Studentas& st)
-        {
-            return galutinis(st) >= 5.0;
-        });
-    copy_if(visi.begin(), visi.end(), back_inserter(tiniginiai), [&](const Studentas& st)
-        {
-            return galutinis(st) < 5.0;
-        });
 }
