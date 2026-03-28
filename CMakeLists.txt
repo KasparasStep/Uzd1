@@ -23,27 +23,27 @@ add_executable(programa
 )
 
 # ---- Tyrimo programos (v1.0) ----
-add_executable(studentai_vector
-    studentai_vector.cpp
+add_executable(vector
+    vector.cpp
     ${SHARED_SRC}
 )
 
-add_executable(studentai_list
-    studentai_list.cpp
+add_executable(list
+    list.cpp
     ${SHARED_SRC}
 )
 
-add_executable(studentai_deque
-    studentai_deque.cpp
+add_executable(deque
+    deque.cpp
     ${SHARED_SRC}
 )
 
 # Windows konsolės UTF-8 palaikymas
 if(WIN32)
     target_compile_definitions(programa         PRIVATE _WIN32)
-    target_compile_definitions(studentai_vector PRIVATE _WIN32)
-    target_compile_definitions(studentai_list   PRIVATE _WIN32)
-    target_compile_definitions(studentai_deque  PRIVATE _WIN32)
+    target_compile_definitions(vector PRIVATE _WIN32)
+    target_compile_definitions(list   PRIVATE _WIN32)
+    target_compile_definitions(deque  PRIVATE _WIN32)
 endif()
 
 # g++ 8 reikalauja -lstdc++fs; g++ 9+ įtraukia automatiškai.
